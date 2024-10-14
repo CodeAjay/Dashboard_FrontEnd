@@ -17,7 +17,7 @@ function Courses() {
 
 
         {courses.map((courseItems, index) => {
-          return <Card key={courseItems._id}  index={index} courseItems={courseItems} />;
+          return <Card key={index}   index={index} courseItems={courseItems} />;
         })}
       </div>
     </>
