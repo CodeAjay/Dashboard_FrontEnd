@@ -2,22 +2,26 @@ import { useContext, useState } from "react"
 import { DataContext } from "../../Store/store"
 
 function CourseForm() {
-const {contentCoursePopup,courseImage, setCourseImage, courseName, setCourseName, setCoursePopup , Button , handleCourseUpdate} = useContext(DataContext)    
+const {contentCoursePopup,courseImage,setCourses, courses, setCourseImage, courseName, setCourseName, setCoursePopup , Button , handleCourseUpdate} = useContext(DataContext)    
 
 // const [title, setTitle]=useState("")
 
 const addCourse=async ()=>{
+const data = {title:courseName} 
   try{
     const response = await fetch("http://localhost:3000/courses", {
       method:"POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ title}),
+      body: JSON.stringify(data),
     }
   )
   if(response.status == 201){
     console.log(response)
+    setCourses([data ,...courses])
+
+
     setCoursePopup(false)
   }
   }catch(error){

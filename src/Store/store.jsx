@@ -177,6 +177,8 @@ function Store({ children }) {
         body: JSON.stringify(newCourseData),
       });
 
+      console.log(response)
+
       const addedCourse = await response.json();
       setCourses([addedCourse.newCourse, ...courses]); // Adjust based on response structure
       setCourseImage("");
@@ -190,8 +192,11 @@ function Store({ children }) {
 
   // Handle deleting a course
   const deleteCourseItem = async (id) => {
-    const deleted = confirm("Are you sure you want to delete this course?");
 
+console.log("delete",courses)
+
+    const deleted = confirm("Are you sure you want to delete this course?");
+console.log(id)
     if (deleted) {
       try {
         await fetch(`http://localhost:3000/courses/${id}`, {
@@ -396,6 +401,7 @@ const updateAnFun = async () => {
         btn,
         setBtn,
         courses,
+        setCourses,
         coursePopup,
         setCoursePopup,
         handleCoursePopup,
