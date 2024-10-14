@@ -5,12 +5,12 @@ import { MdDelete } from "react-icons/md";
 
 function AnnouncementList() {
   const { announce ,setAnnounce, handleAnnEdit} = useContext(DataContext);
-  const [date, setDate] = useState("");
-  useEffect(() => {
-    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-    const currentDate = new Date().toLocaleDateString(undefined, options);
-    setDate(currentDate);
-  }, []);
+  // const [date, setDate] = useState("");
+  // useEffect(() => {
+  //   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  //   const currentDate = new Date().toLocaleDateString(undefined, options);
+  //   setDate(currentDate);
+  // }, []);
 
   const [eyePop, setEyePop] = useState(false);
   const [preview , setPreview] = useState([])
@@ -107,7 +107,7 @@ console.log("edit announcement content", Ant)
                         <div className="text-sm leading-5 text-gray-500" />
                       </td>
                       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                        {date}
+                        {announce.date}
                       </td>
                       <td className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                         <div className="flex justify-end items-start gap-2">

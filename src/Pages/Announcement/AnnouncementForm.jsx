@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../Store/store";
 
 function AnnouncementForm() {
-    const {handleAnnouncmentContent,anTitle, anDes, anbtn,setAnTitle, setAnDes, updateAnFun, setAnnouncePopup} = useContext(DataContext)
+    const {handleAnnouncmentContent,anTitle, anDes, anbtn,setAnTitle, setAnDes,announce, setAnnounce,updateAnFun, setAnnouncePopup} = useContext(DataContext)
 
     // const [title, setTitle]=useState("")
     // const [description, setDescription]=useState("")
@@ -13,11 +13,15 @@ function AnnouncementForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ anTitle, anDes }),
+        body: JSON.stringify({ title:anTitle, description:anDes }),
       }
     )
     if(response.status == 201){
+      const an = await response.json();
       setAnnouncePopup(false)
+      setAnnounce([an, ...announce]);
+      console.log(an)
+
     }
     }
 

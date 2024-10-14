@@ -288,39 +288,40 @@ const removeAnnouncementPopup = () => {
 };
 
 // Handle form submission for adding new announcement
-const handleAnFun = async () => {
-  const formData = {
-    title: anTitle,
-    description: anDes,
-  };
+// const handleAnFun = async () => {
 
-  if (!formData.title || !formData.description) {
-    alert("All fields are required");
-    return;
-  }
 
-  try {
-    // Send new announcement to the backend
-    const response = await fetch("http://localhost:3000/announcements", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+//   try {
+//     const formData = {
+//       title: anTitle,
+//       description: anDes,
+//     };
+//   console.log("form and ", formData.title, formData.descriptioin)
+//     if (!formData.title || !formData.description) {
+//       alert("All fields are required");
+//       return;
+//     }
+//     // Send new announcement to the backend
+//     const response = await fetch("http://localhost:3000/announcements", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(formData),
+//     });
 
-    const newAnnouncement = await response.json();
+//     const newAnnouncement = await response.json();
 
-    // Update state to include new announcement
-    setAnnounce([newAnnouncement, ...announce]);
+//     // Update state to include new announcement
+//     setAnnounce([newAnnouncement, ...announce]);
 
-    // Close popup and reset fields
-    setAnnouncePopup(false);
-    setAnbtn(false);
-    setAnDes("");
-    setAnTitle("");
-  } catch (error) {
-    console.error("Error adding announcement:", error);
-  }
-};
+//     // Close popup and reset fields
+//     setAnnouncePopup(false);
+//     setAnbtn(false);
+//     setAnDes("");
+//     setAnTitle("");
+//   } catch (error) {
+//     console.error("Error adding announcement:", error);
+//   }
+// };
 
 // Handle editing of an announcement
 const handleAnnEdit = (id) => {
@@ -418,7 +419,7 @@ const updateAnFun = async () => {
         handleAnnouncmentContent,
         anTitle, setAnTitle,
         anDes, setAnDes,
-        handleAnFun,
+        // handleAnFun,
         handleAnnEdit, 
         setAnbtn, anbtn, 
         updateAnFun, 
