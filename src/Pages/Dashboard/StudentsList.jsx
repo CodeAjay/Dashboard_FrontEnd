@@ -30,13 +30,13 @@ function StudentsList() {
                   {studentsList.map(
                     (
                       {
-                        avatar,
+                        imageUrl,
                         course,
                         description,
                         email,
                         name,
                         status,
-                        title,
+                        institute,
                       },
                       index
                     ) => {
@@ -47,7 +47,7 @@ function StudentsList() {
                               <div className="flex-shrink-0 w-10 h-10">
                                 <img
                                   className="w-10 h-10 rounded-full"
-                                  src={avatar}
+                                  src={imageUrl}
                                   alt=""
                                 />
                               </div>
@@ -63,7 +63,7 @@ function StudentsList() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="text-sm leading-5 text-gray-900">
-                              {title}
+                              {institute}
                             </div>
                             <div className="text-sm leading-5 text-gray-500">
                               {description}

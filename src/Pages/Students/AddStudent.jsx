@@ -11,13 +11,22 @@ const {handleUpdate} = useContext(DataContext)
 
 
 
-const handleDeleteBtn = (id) => {
+const handleDeleteBtn = async (id) => {
+      const deleted = confirm("Are you sure you want to delete this course?");
 
-const isConfirmed = confirm("Are you sure you want to delete the user?");
-    if (isConfirmed) {
-        const removeItem = addStudent.filter((item) => item.id !== id);
-        setAddStudent(removeItem);
+    if (deleted) {
+      try {
+        await fetch(`http://localhost:3000/students/${id}`, {
+          method: "DELETE",
+        });
+        const remainingStudents = addStudent.filter((item) => item._id !== id);
+        setAddStudent(remainingStudents);
+      } catch (error) {
+        console.error("Error deleting course:", error);
+      }
     }
+        // const removeItem = addStudent.filter((item) => item.id !== id);
+        // setAddStudent(removeItem);
 }
 
 
@@ -46,13 +55,12 @@ const isConfirmed = confirm("Are you sure you want to delete the user?");
                 <tbody className="bg-white">
                   {addStudent.map(
                     (
-                      { id,
-                        avatar,
+                      { _id,
+                        imageUrl,
                         course,
-                        description,
+                        institute,
                         email,
                         name,
-                        title,
                       },
                       index
                     ) => {
@@ -63,7 +71,7 @@ const isConfirmed = confirm("Are you sure you want to delete the user?");
                               <div className="flex-shrink-0 w-10 h-10">
                                 <img
                                   className="w-10 h-10 rounded-full"
-                                  src={avatar}
+                                  src={imageUrl}
                                   alt=""
                                 />
                               </div>
@@ -79,10 +87,10 @@ const isConfirmed = confirm("Are you sure you want to delete the user?");
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="text-sm leading-5 text-gray-900">
-                              {title}
+                              {}
                             </div>
                             <div className="text-sm leading-5 text-gray-500">
-                              {description}
+                              {institute}
                             </div>
                           </td>
                           <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
@@ -92,7 +100,7 @@ const isConfirmed = confirm("Are you sure you want to delete the user?");
                             
                             <div className="flex justify-end items-start gap-2">
                             <button  onClick={()=>handleUpdate(index)} type="button" className=" text-white bg-[#4f46e5]  font-medium rounded-lg text-sm px-5 py-2.5 mb-2">Edit</button>
-                            <button onClick={()=>handleDeleteBtn(id)} className="text-[35px] text-[#e02424]"><MdDelete /></button>
+                            <button onClick={()=>handleDeleteBtn(_id)} className="text-[35px] text-[#e02424]"><MdDelete /></button>
                             </div>
 
                           </td>

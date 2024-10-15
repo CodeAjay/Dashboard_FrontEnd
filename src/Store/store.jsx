@@ -73,11 +73,13 @@ function Store({ children }) {
     },
   ];
 
+
+
   // Add Student API Data
   const [addStudent, setAddStudent] = useState([]);
   const addStudentData = async () => {
     const listedStudent = await fetch(
-      "https://mocki.io/v1/f556c11e-4966-4fd8-a33b-9c26b4295d67"
+      "http://localhost:3000/students"
     );
     const data = await listedStudent.json();
     setAddStudent(data);
@@ -102,11 +104,13 @@ function Store({ children }) {
     },
   ];
 
+
+
   // Dashboard StudentList
   const [studentsList, setStudentList] = useState([]);
   const studentList = async () => {
     const studentListData = await fetch(
-      "https://mocki.io/v1/bab9648e-2c95-45a9-bc0b-6f9c92c3ca78"
+      "http://localhost:3000/students"
     );
     const studentData = await studentListData.json();
     setStudentList(studentData);
@@ -117,6 +121,7 @@ function Store({ children }) {
 
 
 
+  
   // course page Api Data
   const [Button, setButton] = useState(false);
   const [courses, setCourses] = useState([]);

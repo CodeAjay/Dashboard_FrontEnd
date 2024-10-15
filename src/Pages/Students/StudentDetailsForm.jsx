@@ -9,80 +9,121 @@ const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn
 
 
 
-const [userProfile, setUserProfile] = useState(updateData?updateData.avatar:"")
+const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
 const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
-const [instituteName, setInstituteName] = useState(updateData?updateData.title:"")
+const [instituteName, setInstituteName] = useState(updateData?updateData.institute:"")
 const [course, setCourse] = useState(updateData?updateData.course:"")
 
 
 
-
-const  handleStudentAdded = () =>{
-  
-  
-if(userProfile=== "" || userName=== "" || userEmail=== "" || instituteName=== "" || course=== ""){
-return alert("All fields Are Required")
-
-}
-
-
-const newStudent= {
-    avatar:userProfile,
-    course:course,
-    title:instituteName,
-    email:userEmail,
-    name:userName,
-}
-setAddStudent([newStudent, ...addStudent])
-alert("Student added Sucessfully")
-setUserProfile("")
-setUserName("")
-setUserEmail("")
-setInstituteName("")
-setCourse("")
-setPopup(false)
-}
-
-const handleStudentUpdate = () => {
+const handleStudentAdded = async () => {
+  // Check if any field is empty
   if (userProfile === "" || userName === "" || userEmail === "" || instituteName === "" || course === "") {
-    return alert("All fields Are Required");
+    return alert("All fields are required");
   }
 
-  setAddStudent((prevAddStudent) => {
-    const studentIndex = prevAddStudent.findIndex((student) => {
-      return (
-        student.id === updateData.id &&
-        student.email === updateData.email &&
-        student.course === updateData.course &&
-        student.title === updateData.title
-      );
-    });
-  
-    console.log(studentIndex, "studentIndex")
-  
-    if (studentIndex !== -1) {
-      prevAddStudent[studentIndex] = {
-        avatar: userProfile,
-        course: course,
-        title: instituteName,
-        email: userEmail,
-        name: userName,
-      };
-    }
-  
-    return [...prevAddStudent]; // Return a new array with the updated student
-  });
+  // Create the new student object
+  const newStudent = {
+    imageUrl: userProfile,
+    course: course,
+    institute: instituteName,
+    email: userEmail,
+    name: userName,
+  };
 
-  alert("Student Updated Successfully");
-  setUserProfile("");
-  setUserName("");
-  setUserEmail("");
-  setInstituteName("");
-  setCourse("");
-  setPopup(false);
+  try {
+    // Send POST request to the backend API
+    const response = await fetch('http://localhost:3000/students', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newStudent),
+    });
+
+    if (response.ok) {
+      // Assuming the response contains the added student data
+      const savedStudent = await response.json();
+
+      // Update state with the newly added student
+      setAddStudent([savedStudent, ...addStudent]);
+      alert("Student added successfully");
+      
+      // Clear the form
+      setUserProfile("");
+      setUserName("");
+      setUserEmail("");
+      setInstituteName("");
+      setCourse("");
+      setPopup(false);
+    } else {
+      alert("Failed to add student. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error adding student:", error);
+    alert("An error occurred. Please try again.");
+  }
 };
 
+
+const handleStudentUpdate = async () => {
+  // Check if any field is empty
+  if (userProfile === "" || userName === "" || userEmail === "" || instituteName === "" || course === "") {
+    return alert("All fields are required");
+  }
+
+  // Create the updated student object
+  const updatedStudent = {
+    imageUrl: userProfile,
+    course: course,
+    institute: instituteName,
+    email: userEmail,
+    name: userName,
+  };
+
+  console.log("update data inside update", updateData)
+
+  try {
+    // Send PUT or PATCH request to the backend API
+    const response = await fetch(`http://localhost:3000/students/${updateData._id}`, {
+      method: 'PUT', // Or 'PATCH' if your API uses that for updates
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedStudent),
+    });
+
+    if (response.ok) {
+      // Update the student in the local state
+      setAddStudent((prevAddStudent) => {
+        const studentIndex = prevAddStudent.findIndex((student) => student._id === updateData._id);
+        
+        if (studentIndex !== -1) {
+          // Update the specific student
+          prevAddStudent[studentIndex] = { ...prevAddStudent[studentIndex], ...updatedStudent };
+        }
+        
+        return [...prevAddStudent]; // Return a new array with the updated student
+      });
+
+      alert("Student updated successfully");
+
+      // Clear the form
+      setUserProfile("");
+      setUserName("");
+      setUserEmail("");
+      setInstituteName("");
+      setCourse("");
+      setPopup(false);
+    } else {
+      alert("Failed to update student. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error updating student:", error);
+    alert("An error occurred. Please try again.");
+  }
+};
 
 
 
@@ -149,9 +190,9 @@ const handleStudentUpdate = () => {
 <select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e)=> setInstituteName(e.target.value)}
           value={instituteName} form="carform" placeholder="Select your OPtion">
    <option value="">Select your option</option>
-  <option value="saab">Saab</option>
-  <option value="opel">Opel</option>
-  <option value="audi">Audi</option>
+  <option value="ITES Dhalpur Kullu">ITES Dhalpur Kullu</option>
+  <option value="ITES Fashion World Pirdi">ITES Fashion World Pirdi</option>
+  <option value="ITES Bhuntar">ITES Bhuntar</option>
 </select>
 
 
