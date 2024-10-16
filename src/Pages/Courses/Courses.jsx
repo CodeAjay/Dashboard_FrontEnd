@@ -6,7 +6,7 @@ import AddCourseBtn from "./AddCourseBtn";
 function Courses() {
   const { courses } = useContext(DataContext);
 
-  
+  // console.log(courses)
 
   return (
     <>

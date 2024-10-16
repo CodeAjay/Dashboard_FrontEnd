@@ -3,7 +3,7 @@ import { DataContext } from "../../Store/store"
 
 function StudentDetailsForm() {
 
-const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn} = useContext(DataContext)
+const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn, institutes} = useContext(DataContext)
 
 
 
@@ -26,8 +26,8 @@ const handleStudentAdded = async () => {
   // Create the new student object
   const newStudent = {
     imageUrl: userProfile,
-    course: course,
-    institute: instituteName,
+    course_id: course,
+    institute_id: instituteName,
     email: userEmail,
     name: userName,
   };
@@ -189,10 +189,10 @@ const handleStudentUpdate = async () => {
         
 <select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e)=> setInstituteName(e.target.value)}
           value={instituteName} form="carform" placeholder="Select your OPtion">
-   <option value="">Select your option</option>
-  <option value="ITES Dhalpur Kullu">ITES Dhalpur Kullu</option>
-  <option value="ITES Fashion World Pirdi">ITES Fashion World Pirdi</option>
-  <option value="ITES Bhuntar">ITES Bhuntar</option>
+      <option value="">Select your option</option>
+      {institutes.map((item) => (
+        <option key={item._id} value={item._id}>{item.institute_name}</option>
+      ))}
 </select>
 
 

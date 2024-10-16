@@ -121,12 +121,13 @@ function Store({ children }) {
 
 
 
-  
+
   // course page Api Data
   const [Button, setButton] = useState(false);
   const [courses, setCourses] = useState([]);
   const [courseImage, setCourseImage] = useState("");
   const [courseName, setCourseName] = useState("");
+  const [courseInstitute, setCourseInstitute] = useState({});
   const [coursePopup, setCoursePopup] = useState(false);
   const [updateCourseData, setUpdateCourseData] = useState(null);
 
@@ -142,7 +143,7 @@ function Store({ children }) {
       }
     };
     showCourses();
-  }, []);
+  }, [courses]);
 
   // Open popup for adding/updating course
   const handleCoursePopup = () => {
@@ -150,6 +151,7 @@ function Store({ children }) {
     setButton(false);
     setCourseImage("");
     setCourseName("");
+    setCourseInstitute(""); 
     setUpdateCourseData(null);
   };
 
@@ -163,37 +165,39 @@ function Store({ children }) {
   };
 
   // Handle adding a new course
-  const handleAddCourse = async () => {
-    if (courseImage === "" || courseName === "") {
-      return alert("All fields are required");
-    }
+  // const handleAddCourse = async () => {
+  //   if (courseImage === "" || courseName === "") {
+  //     return alert("All fields are required");
+  //   }
 
-    const newCourseData = {
-      title: courseName,
-      institute: "Default Institute", // Set default or dynamic institute if needed
-      studentsEnrolled: 0, // Set initial value
-      fee: 0, // Set initial value
-    };
+  //   const newCourseData = {
+  //     courseName: courseName,
+  //     institute_id: courseInstitute, // Set default or dynamic institute if needed
+  //     studentsEnrolled: 0, // Set initial value
+  //     totalFee: 0, // Set initial value
+  //   };
 
-    try {
-      const response = await fetch("http://localhost:3000/courses", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCourseData),
-      });
+  //   try {
+  //     const response = await fetch("http://localhost:3000/courses", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(newCourseData),
+  //     });
 
-      console.log(response)
+  //     // console.log(response)
 
-      const addedCourse = await response.json();
-      setCourses([addedCourse.newCourse, ...courses]); // Adjust based on response structure
-      setCourseImage("");
-      setCourseName("");
-      setCoursePopup(false);
-      setButton(false);
-    } catch (error) {
-      console.error("Error adding course:", error);
-    }
-  };
+  //     const addedCourse = await response.json();
+  //     console.log(addedCourse.newCourse, "addedCourse")
+  //     setCourses([addedCourse.newCourse, ...courses]); 
+  //     setCourseImage("");
+  //     setCourseName("");
+  //     setCourseInstitute(""); 
+  //     setCoursePopup(false);
+  //     setButton(false);
+  //   } catch (error) {
+  //     console.error("Error adding course:", error);
+  //   }
+  // };
 
   // Handle deleting a course
   const deleteCourseItem = async (id) => {
@@ -215,16 +219,21 @@ console.log(id)
     }
   };
 
-  // Handle editing course data
   const editCourseData = (index) => {
     setCoursePopup(true);
     const courseToEdit = courses[index];
-    console.log(courseToEdit)
-    setCourseImage(courseToEdit.image || ""); // Add a default if necessary
-    setCourseName(courseToEdit.title);
+    
+    setCourseImage(courseToEdit.imageUrl || ""); // Set course image
+    setCourseName(courseToEdit.courseName); // Set course name
+    setCourseInstitute(courseToEdit.institute_id._id); 
     setUpdateCourseData(courseToEdit);
+    
+    console.log(courseToEdit, "course to edit");
+    console.log(courseInstitute, "courseInstitute");
+    
     setButton(true);
   };
+  
 
   // Handle updating a course
   const handleCourseUpdate = async () => {
@@ -237,10 +246,11 @@ console.log(id)
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: courseName,
-          institute: updateCourseData.institute,
-          studentsEnrolled: updateCourseData.studentsEnrolled,
-          fee: updateCourseData.fee,
+          courseName: courseName,
+          imageUrl:courseImage,
+          institute_id: courseInstitute
+          // studentsEnrolled: studentsEnrolled,
+          // totalFee: fee,
         }),
       });
 
@@ -252,6 +262,7 @@ console.log(id)
       setCoursePopup(false);
       setCourseImage("");
       setCourseName("");
+      setCourseInstitute(""); 
     } catch (error) {
       console.error("Error updating course:", error);
     }
@@ -275,7 +286,7 @@ useEffect(() => {
       const response = await fetch("http://localhost:3000/announcements");
       const data = await response.json();
       setAnnounce(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error("Error fetching announcements:", error);
     }
@@ -383,6 +394,25 @@ const updateAnFun = async () => {
 
 
 
+  const [institutes, setInstitutes] = useState([]);
+
+  const fetchInstitutes = async () => {
+    try {
+      const result = await fetch("http://localhost:3000/institutes");
+      if (result.status === 200) {
+        const data = await result.json(); // Convert response to JSON
+        setInstitutes(data); // Update state with the JSON data
+      } else {
+        console.error("Failed to fetch institutes:", result.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching institutes:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchInstitutes();
+  }, []);
 
 
 
@@ -416,7 +446,8 @@ const updateAnFun = async () => {
         setCourseImage,
         courseName,
         setCourseName,
-        handleAddCourse,
+        courseInstitute, setCourseInstitute,
+        // handleAddCourse,
         deleteCourseItem,
         editCourseData,
         Button,
@@ -437,6 +468,7 @@ const updateAnFun = async () => {
         // editAnData, 
         // editAnData
         // updateAnData, setupdateAnData
+        institutes, setInstitutes, fetchInstitutes,
       }}
     >
       {children}
