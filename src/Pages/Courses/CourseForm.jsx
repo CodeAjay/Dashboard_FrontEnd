@@ -28,7 +28,7 @@ const addCourse = async () => {
       console.log(addedCourse, "addedCourse"); // Log the newly added course
 
       // Update the courses state with the new course
-      setCourses([addedCourse.newCourse, ...courses]); // Ensure you access the correct property
+      setCourses([addedCourse, ...courses]); // Ensure you access the correct property
 
       // Clear input fields and close the popup
       setCourseImage("");

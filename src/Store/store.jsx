@@ -86,6 +86,7 @@ function Store({ children }) {
   };
   useEffect(() => {
     addStudentData();
+    console.log("addstudents in students get", addStudent)
   }, []);
   // Dashboard StudenList Headings
 
@@ -143,7 +144,7 @@ function Store({ children }) {
       }
     };
     showCourses();
-  }, [courses]);
+  }, []);
 
   // Open popup for adding/updating course
   const handleCoursePopup = () => {
