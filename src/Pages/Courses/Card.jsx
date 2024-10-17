@@ -12,6 +12,7 @@ function Card({ courseItems , index}) {
       <div   className="relative flex flex-col mb-2 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
         <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
           <img
+          className="w-full"
             src={imageUrl}
             alt="card-image"
           />

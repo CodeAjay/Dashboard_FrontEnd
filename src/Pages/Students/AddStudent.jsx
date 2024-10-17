@@ -57,8 +57,8 @@ const handleDeleteBtn = async (id) => {
                     (
                       { _id,
                         imageUrl,
-                        course,
-                        institute,
+                        course_id,
+                        institute_id,
                         email,
                         name,
                       },
@@ -90,11 +90,11 @@ const handleDeleteBtn = async (id) => {
                               {}
                             </div>
                             <div className="text-sm leading-5 text-gray-500">
-                              {institute}
+                              {institute_id.institute_name}
                             </div>
                           </td>
                           <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                            {course}
+                            {course_id.courseName}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                             
