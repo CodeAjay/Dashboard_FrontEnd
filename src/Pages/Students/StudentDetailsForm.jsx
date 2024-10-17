@@ -3,7 +3,7 @@ import { DataContext } from "../../Store/store"
 
 function StudentDetailsForm() {
 
-const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn, institutes, courseInstitute} = useContext(DataContext)
+const {handleContentClick , addStudent, setAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(DataContext)
 
 
 
@@ -12,8 +12,8 @@ const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn
 const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
 const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
-const [instituteName, setInstituteName] = useState(updateData?updateData.courseInstitute:"")
-const [course, setCourse] = useState(updateData?updateData.course:"")
+const [instituteName, setInstituteName] = useState(updateData?updateData.institute_id._id:"")
+const [course, setCourse] = useState(updateData?updateData.course_id._id:"")
 
 
 
@@ -27,7 +27,7 @@ const handleStudentAdded = async () => {
   const newStudent = {
     imageUrl: userProfile,
     course_id: course,
-    institute_id: courseInstitute,
+    institute_id: instituteName,
     email: userEmail,
     name: userName,
   };
@@ -45,10 +45,12 @@ const handleStudentAdded = async () => {
     if (response.ok) {
       // Assuming the response contains the added student data
       const savedStudent = await response.json();
+      // console.log(savedStudent.institute_id)
 
       // Update state with the newly added student
       setAddStudent([savedStudent, ...addStudent]);
       alert("Student added successfully");
+      console.log(savedStudent, "savedStudent")
       
       // Clear the form
       setUserProfile("");
@@ -76,8 +78,8 @@ const handleStudentUpdate = async () => {
   // Create the updated student object
   const updatedStudent = {
     imageUrl: userProfile,
-    course: course,
-    institute: instituteName,
+    course_id: course,
+    institute_id: instituteName,
     email: userEmail,
     name: userName,
   };
@@ -86,22 +88,23 @@ const handleStudentUpdate = async () => {
 
   try {
     // Send PUT or PATCH request to the backend API
-    const response = await fetch(`http://localhost:3000/students/${updateData._id}`, {
+    const response = await fetch("http://localhost:3000/students/${updateData._id", {
       method: 'PUT', // Or 'PATCH' if your API uses that for updates
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedStudent),
     });
-
+    
     if (response.ok) {
+      const newStudent = await response.json();
       // Update the student in the local state
       setAddStudent((prevAddStudent) => {
         const studentIndex = prevAddStudent.findIndex((student) => student._id === updateData._id);
         
         if (studentIndex !== -1) {
           // Update the specific student
-          prevAddStudent[studentIndex] = { ...prevAddStudent[studentIndex], ...updatedStudent };
+          prevAddStudent[studentIndex] = { ...prevAddStudent[studentIndex], ...newStudent };
         }
         
         return [...prevAddStudent]; // Return a new array with the updated student
@@ -188,7 +191,7 @@ const handleStudentUpdate = async () => {
         </label>
         
 <select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e)=> setInstituteName(e.target.value)}
-          value={courseInstitute} form="carform" placeholder="Select your OPtion">
+          value={instituteName} form="carform" placeholder="Select your OPtion">
       <option value="">Select your option</option>
       {institutes.map((item) => (
         <option key={item._id} value={item._id}>{item.institute_name}</option>
@@ -208,13 +211,18 @@ const handleStudentUpdate = async () => {
         >
           Course
         </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          type="text"
-          onChange={(e)=> setCourse(e.target.value)}
-          value={course}
-          placeholder="Course"
-        />
+        <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setCourse(e.target.value)}
+              value={course}
+            >
+              <option value="">Select your option</option>
+              {courses.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.courseName} {/* Adjust this based on your course model */}
+                </option>
+              ))}
+            </select>
       </div>
     
 
