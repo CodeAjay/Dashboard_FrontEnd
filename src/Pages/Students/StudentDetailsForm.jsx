@@ -3,7 +3,7 @@ import { DataContext } from "../../Store/store"
 
 function StudentDetailsForm() {
 
-const {handleContentClick , addStudent, setAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(DataContext)
+  const {handleContentClick , addStudent, setAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(DataContext)
 
 
 
@@ -13,7 +13,7 @@ const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:""
 const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
 const [instituteName, setInstituteName] = useState(updateData?updateData.institute_id._id:"")
-const [course, setCourse] = useState(updateData?updateData.course_id._id:"")
+const [course, setCourse] = useState(updateData?updateData.course_id._id:"")  
 
 
 
@@ -45,7 +45,7 @@ const handleStudentAdded = async () => {
     if (response.ok) {
       // Assuming the response contains the added student data
       const savedStudent = await response.json();
-      // console.log(savedStudent.institute_id)
+      // console.log(savedStudent, )
 
       // Update state with the newly added student
       setAddStudent([savedStudent, ...addStudent]);
@@ -88,7 +88,7 @@ const handleStudentUpdate = async () => {
 
   try {
     // Send PUT or PATCH request to the backend API
-    const response = await fetch("http://localhost:3000/students/${updateData._id", {
+    const response = await fetch(`http://localhost:3000/students/${updateData._id}`, {
       method: 'PUT', // Or 'PATCH' if your API uses that for updates
       headers: {
         'Content-Type': 'application/json',
