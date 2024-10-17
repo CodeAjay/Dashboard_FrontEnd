@@ -3,15 +3,15 @@ import { DataContext } from "../../Store/store";
 
 function StudentsList() {
   const { studentsList, studentHeading } = useContext(DataContext);
-  console.log(studentHeading, "studentHeading");
+  // console.log(studentHeading, "studentHeading");
 
   return (
     <>
       {studentsList && studentsList.length > 0 ? (
-        <div className="flex flex-col w-[97.5%] ">
-          <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="flex">
+          <div className="py-2 overflow-x-auto sm:px-6 lg:px-8">
             <div className="inline-block min-w-full overflow-hidden align-middle  shadow sm:rounded-lg border-b border-gray-200 ">
-              <table className=" min-w-full">
+              <table className="w-fit">
                 <thead>
                   <tr>
                     {studentHeading.map(({ headline }, index) => {

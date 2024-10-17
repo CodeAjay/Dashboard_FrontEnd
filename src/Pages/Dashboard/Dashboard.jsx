@@ -14,7 +14,7 @@ function Dashboard() {
   const { cardDAta, institutes } = useContext(DataContext);
 
   const chartData = transformFeeData(FeeData);
-console.log(institutes, "institutes")
+// console.log(institutes, "institutes")
 
   return (
     <div className="container px-5">
@@ -35,7 +35,7 @@ console.log(institutes, "institutes")
       </div>
 
       {/* Grid Layout for StudentsList */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-[25px] w-[96%]">
         {/* Left Column for Students List */}
         <div className="col-span-2">
         <FeeChart chartData={chartData} />
@@ -46,9 +46,6 @@ console.log(institutes, "institutes")
           <StudentsList />
         </div>
       </div>
-      {institutes.map((item) => (
-        <p key={item.id}>{item.institute_name}</p>
-      ))}
     </div>
   );
 }

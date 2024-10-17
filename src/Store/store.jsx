@@ -143,7 +143,7 @@ function Store({ children }) {
       }
     };
     showCourses();
-  }, [courses]);
+  }, []);
 
   // Open popup for adding/updating course
   const handleCoursePopup = () => {

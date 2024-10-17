@@ -29,6 +29,7 @@ export const FeeChart = ({ chartData }) => {
             }
           }
         }}
+        style={{ width: '95%', height: '400px' }}
       />
     </div>
   );

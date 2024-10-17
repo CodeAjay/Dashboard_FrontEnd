@@ -3,7 +3,7 @@ import { DataContext } from "../../Store/store"
 
 function StudentDetailsForm() {
 
-const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn, institutes} = useContext(DataContext)
+const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn, institutes, courseInstitute} = useContext(DataContext)
 
 
 
@@ -12,7 +12,7 @@ const {handleContentClick , addStudent, setAddStudent ,setPopup ,updateData, btn
 const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
 const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
-const [instituteName, setInstituteName] = useState(updateData?updateData.institute:"")
+const [instituteName, setInstituteName] = useState(updateData?updateData.courseInstitute:"")
 const [course, setCourse] = useState(updateData?updateData.course:"")
 
 
@@ -27,7 +27,7 @@ const handleStudentAdded = async () => {
   const newStudent = {
     imageUrl: userProfile,
     course_id: course,
-    institute_id: instituteName,
+    institute_id: courseInstitute,
     email: userEmail,
     name: userName,
   };
@@ -188,7 +188,7 @@ const handleStudentUpdate = async () => {
         </label>
         
 <select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e)=> setInstituteName(e.target.value)}
-          value={instituteName} form="carform" placeholder="Select your OPtion">
+          value={courseInstitute} form="carform" placeholder="Select your OPtion">
       <option value="">Select your option</option>
       {institutes.map((item) => (
         <option key={item._id} value={item._id}>{item.institute_name}</option>
