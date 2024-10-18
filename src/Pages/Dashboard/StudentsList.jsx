@@ -9,7 +9,7 @@ function StudentsList() {
     <>
       {studentsList && studentsList.length > 0 ? (
         <div className="flex">
-          <div className="py-2 overflow-x-auto sm:px-6 lg:px-8">
+          <div className="py-2 overflow-x-auto ">
             <div className="inline-block min-w-full overflow-hidden align-middle  shadow sm:rounded-lg border-b border-gray-200 ">
               <table className="w-fit">
                 <thead>

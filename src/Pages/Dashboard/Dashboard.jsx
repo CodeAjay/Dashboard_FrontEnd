@@ -35,7 +35,7 @@ function Dashboard() {
       </div>
 
       {/* Grid Layout for StudentsList */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-[25px] w-[96%]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-[35px] w-[98%]">
         {/* Left Column for Students List */}
         <div className="col-span-2">
         <FeeChart chartData={chartData} />
