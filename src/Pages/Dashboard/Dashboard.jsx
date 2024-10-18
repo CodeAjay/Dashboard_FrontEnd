@@ -7,6 +7,7 @@ import { DataContext } from "../../Store/store";
 import StudentsList from "./StudentsList";
 // import { Data } from "./Data";
 import { FeeChart, transformFeeData } from './Chart';
+import PendingFeesStudents from "./PendingFeeStudents";
 
 Chart.register(CategoryScale);
 
@@ -43,7 +44,7 @@ console.log(chartData, "chartData")
 
         {/* Right Column for Another Students List or Other Info */}
         <div className="col-span-1">
-          <StudentsList />
+          <PendingFeesStudents />
         </div>
       </div>
     </div>
