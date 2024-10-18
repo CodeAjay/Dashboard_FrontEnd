@@ -6,17 +6,31 @@ export const DataContext = createContext();
 
 function Store({ children }) {
 
-  
+  const currentYear = new Date().getFullYear();
+  const currentMonth = String(new Date().getMonth() + 1).padStart(2, "0"); 
   const [addStudent, setAddStudent] = useState([]);
   const [courses, setCourses] = useState([]);
   const [feeCollection, setFeeCollection]=useState({
     totalFeeCollected:"",
     monthlyCollections:""
   });
+  const [from, setFrom ] = useState(`${currentYear-1}-${currentMonth}`)
+  const [to, setTo ] = useState(`${currentYear}-${currentMonth}`)
 
+  const minYear = currentYear;
+  const minMonth = currentMonth;
+  const minDate = `${minYear}-${minMonth}`;
+  
   const feee = async () => {
+
+
+
     try {
-      const feeColl = await fetch("http://localhost:3000/fee-collection/");
+      const feeColl = await fetch("http://localhost:3000/fee-collection/fees", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({from,to})
+            });
       
       if (feeColl.status === 200) {
         const ss = await feeColl.json();  // Use feeColl.json() to parse the response
@@ -31,7 +45,7 @@ function Store({ children }) {
 
   useEffect(()=>{
     feee()
-  },[])
+  },[from, to])
 
   // Dashboard Card Data
   const cardDAta = [
@@ -445,6 +459,8 @@ const updateAnFun = async () => {
   return (
     <DataContext.Provider
       value={{
+        to, setTo,
+        from, setFrom,minDate,
         cardDAta,feeCollection,
         studentsList,
         studentHeading,

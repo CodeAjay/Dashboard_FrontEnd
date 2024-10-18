@@ -12,7 +12,11 @@ import PendingFeesStudents from "./PendingFeeStudents";
 Chart.register(CategoryScale);
 
 function Dashboard() {
-  const { cardDAta, feeCollection  } = useContext(DataContext);
+  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate } = useContext(DataContext);
+
+
+console.log(from,"from")
+console.log(to,"to")
 
   const chartData = transformFeeData(feeCollection.monthlyCollections);
 console.log(chartData, "chartData")
@@ -39,6 +43,10 @@ console.log(chartData, "chartData")
       <div className="grid grid-cols-1 md:grid-cols-3 gap-[35px] w-[98%]">
         {/* Left Column for Students List */}
         <div className="col-span-2">
+<input className="mr-5" type="month" value={from} onChange={(e)=> setFrom(e.target.value)}/>
+<input type="month" max={minDate} value={to} onChange={(e)=> setTo(e.target.value)}/>
+
+
         <FeeChart chartData={chartData} />
         </div>
 
