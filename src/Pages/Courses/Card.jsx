@@ -6,7 +6,7 @@ function Card({ courseItems , index}) {
   const {_id,   imageUrl, student, courseName, studentsEnrolled, institute_id } = courseItems;
   // console.log(courseItems)
 
-  const{deleteCourseItem , editCourseData} = useContext(DataContext)
+  const{deleteCourseItem , editCourseData, courses} = useContext(DataContext)
   return (
     <>
       <div   className="relative flex flex-col mb-2 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
@@ -23,7 +23,7 @@ function Card({ courseItems , index}) {
               {courseName}
             </h6>
             <div className="flex items-center  ml-auto ">
-              <p className="text-1xl pr-4">Students: {studentsEnrolled} </p>
+              <p className="text-1xl pr-2">{studentsEnrolled} </p>
               <ImUsers className="text-[20px]" />
 
               <span className="text-slate-600 mr-[10px]">{student}</span>
@@ -42,7 +42,7 @@ function Card({ courseItems , index}) {
               <MdDelete />
             </button>
             </div>
-            <p className="text-1xl font-bold">{institute_id?"Institute: "+institute_id.institute_name:""}</p>
+            <p className="text-1xl font-bold">{institute_id?institute_id.institute_name:""}</p>
           </div>
         </div>
       </div>

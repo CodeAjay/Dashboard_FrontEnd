@@ -5,24 +5,52 @@ import { BiRupee } from "react-icons/bi";
 export const DataContext = createContext();
 
 function Store({ children }) {
+
+  
+  const [addStudent, setAddStudent] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [feeCollection, setFeeCollection]=useState({
+    totalFeeCollected:"",
+    monthlyCollections:""
+  });
+
+  const feee = async () => {
+    try {
+      const feeColl = await fetch("http://localhost:3000/fee-collection/");
+      
+      if (feeColl.status === 200) {
+        const ss = await feeColl.json();  // Use feeColl.json() to parse the response
+        setFeeCollection(ss);  // Set the feeCollection state with the parsed data
+        console.log(ss, "feeCollection");  // Log the parsed data, not the state variable
+      }
+    } catch (error) {
+      console.error("Error fetching fee collection:", error);
+    }
+  };
+  
+
+  useEffect(()=>{
+    feee()
+  },[])
+
   // Dashboard Card Data
   const cardDAta = [
     {
       icon: <BiRupee />,
       bgColor: "#7b74ec",
-      title: "8,282",
+      title: feeCollection.totalFeeCollected,
       descriptioin: "Fees Collection",
     },
     {
       icon: <FaUser />,
       bgColor: "#ea580cbf",
-      title: "200,521",
+      title: addStudent.length,
       descriptioin: "Total Students",
     },
     {
       icon: <FaBookReader />,
       bgColor: "#e45d99",
-      title: "15",
+      title: courses.length,
       descriptioin: "Available Courses",
     },
   ];
@@ -76,7 +104,6 @@ function Store({ children }) {
 
 
   // Add Student API Data
-  const [addStudent, setAddStudent] = useState([]);
   const addStudentData = async () => {
     const listedStudent = await fetch(
       "http://localhost:3000/students"
@@ -124,7 +151,6 @@ function Store({ children }) {
 
   // course page Api Data
   const [Button, setButton] = useState(false);
-  const [courses, setCourses] = useState([]);
   const [courseImage, setCourseImage] = useState("");
   const [courseName, setCourseName] = useState("");
   const [courseInstitute, setCourseInstitute] = useState({});
@@ -143,7 +169,7 @@ function Store({ children }) {
       }
     };
     showCourses();
-  }, []);
+  }, [addStudent]);
 
   // Open popup for adding/updating course
   const handleCoursePopup = () => {
@@ -419,7 +445,7 @@ const updateAnFun = async () => {
   return (
     <DataContext.Provider
       value={{
-        cardDAta,
+        cardDAta,feeCollection,
         studentsList,
         studentHeading,
         addStudentHeading,

@@ -6,15 +6,15 @@ import Cart from "./Cart";
 import { DataContext } from "../../Store/store";
 import StudentsList from "./StudentsList";
 // import { Data } from "./Data";
-import { FeeChart, transformFeeData, FeeData } from './Chart';
+import { FeeChart, transformFeeData } from './Chart';
 
 Chart.register(CategoryScale);
 
 function Dashboard() {
-  const { cardDAta, institutes } = useContext(DataContext);
+  const { cardDAta, feeCollection  } = useContext(DataContext);
 
-  const chartData = transformFeeData(FeeData);
-// console.log(institutes, "institutes")
+  const chartData = transformFeeData(feeCollection.monthlyCollections);
+console.log(chartData, "chartData")
 
   return (
     <div className="container px-5">
