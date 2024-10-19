@@ -30,9 +30,9 @@ function Sidebar({ setisExpended, isExpended }) {
       path: "/announcement",
     },
     {
-      name: "Migration",
+      name: "Pending Fee",
       icon: <IoDocuments />,
-      path: "/migration",
+      path: "/pendingfee",
     },
   ];
   return (

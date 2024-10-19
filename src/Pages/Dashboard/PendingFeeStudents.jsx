@@ -40,7 +40,7 @@ function PendingFeesStudents() {
         placeholder={penYear}
       />
       <div className="flex flex-col">
-        <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="py-2 overflow-x-auto">
           <div className="inline-block min-w-full overflow-hidden align-middle shadow sm:rounded-lg border-b border-gray-200 ">
             <table className="min-w-full">
               <thead>
