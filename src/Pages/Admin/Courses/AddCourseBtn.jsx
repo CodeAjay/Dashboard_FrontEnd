@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IoAddCircle } from "react-icons/io5";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 import CourseForm from "./CourseForm";
 function AddCourseBtn() {
 const {handleCoursePopup , coursePopup , removeCoursePopup} = useContext(DataContext)

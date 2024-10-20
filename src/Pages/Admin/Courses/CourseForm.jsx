@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { DataContext } from "../../Store/store"
+import { DataContext } from "../../../Store/store"
 
 function CourseForm() {
 const {contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(DataContext)    

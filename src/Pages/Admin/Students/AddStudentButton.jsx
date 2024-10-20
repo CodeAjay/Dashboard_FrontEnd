@@ -1,7 +1,7 @@
 import { IoAddCircle } from "react-icons/io5";
 import StudentDetailsForm from "./StudentDetailsForm";
 import { useContext } from "react";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 
 function AddStudentButton() {
 

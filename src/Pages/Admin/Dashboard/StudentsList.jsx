@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 
 function StudentsList() {
   const { studentsList, studentHeading } = useContext(DataContext);

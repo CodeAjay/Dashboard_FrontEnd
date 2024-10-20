@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ImUsers } from "react-icons/im";
 import { MdDelete } from "react-icons/md";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 function Card({ courseItems , index}) {
   const {_id,   imageUrl, student, courseName, studentsEnrolled, institute_id } = courseItems;
   // console.log(courseItems)

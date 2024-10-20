@@ -3,7 +3,7 @@ import { CategoryScale } from "chart.js";
 
 import React, { useContext } from "react";
 import Cart from "./Cart";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 import StudentsList from "./StudentsList";
 // import { Data } from "./Data";
 import { FeeChart, transformFeeData } from './Chart';
@@ -12,8 +12,8 @@ import PendingFeesStudents from "./PendingFeeStudents";
 Chart.register(CategoryScale);
 
 function Dashboard() {
-  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate } = useContext(DataContext);
-
+  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate , user1} = useContext(DataContext);
+console.log(user1,"user1")
 
 console.log(from,"from")
 console.log(to,"to")

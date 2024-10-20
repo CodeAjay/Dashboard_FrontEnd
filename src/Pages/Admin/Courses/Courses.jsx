@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Card from "./Card";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 import AddCourseBtn from "./AddCourseBtn";
 
 function Courses() {
@@ -15,10 +15,11 @@ function Courses() {
     <AddCourseBtn/>
   </div>
 
-
+      <div className="flex flex-wrap gap-6">
         {courses.map((courseItems, index) => {
           return <Card key={index}   index={index} courseItems={courseItems} />;
         })}
+        </div>
       </div>
     </>
   );

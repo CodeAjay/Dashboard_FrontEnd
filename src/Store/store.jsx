@@ -454,11 +454,16 @@ const updateAnFun = async () => {
     fetchInstitutes();
   }, []);
 
+const [user] = useState("student");
+const studentId = "67139a204f62b79c645f254c"
+
 
 
   return (
     <DataContext.Provider
       value={{
+        studentId,
+        user,
         to, setTo,
         from, setFrom,minDate,
         cardDAta,feeCollection,
