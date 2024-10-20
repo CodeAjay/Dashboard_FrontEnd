@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaHome } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { CiFolderOn } from "react-icons/ci";
@@ -6,35 +6,67 @@ import { CiCalendar } from "react-icons/ci";
 import { IoDocuments } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { DataContext } from "../Store/store";
+import { FaGooglePay } from "react-icons/fa6";
 
 function Sidebar({ setisExpended, isExpended }) {
-  const Links = [
-    {
-      name: "Dashboard",
-      icon: <FaHome />,
-      path: "/",
-    },
-    {
-      name: "Students",
-      icon: <FiUsers />,
-      path: "/students",
-    },
-    {
-      name: "Courses",
-      icon: <CiFolderOn />,
-      path: "/courses",
-    },
-    {
-      name: "Announcement",
-      icon: <CiCalendar />,
-      path: "/announcement",
-    },
-    {
-      name: "Pending Fee",
-      icon: <IoDocuments />,
-      path: "/pendingfee",
-    },
-  ];
+  
+  const {user} = useContext(DataContext);
+
+  const Links = user === "admin" 
+        ? [
+            {
+                name: "Dashboard",
+                icon: <FaHome />,
+                path: "/",
+            },
+            {
+                name: "Students",
+                icon: <FiUsers />,
+                path: "/students",
+            },
+            {
+                name: "Courses",
+                icon: <CiFolderOn />,
+                path: "/courses",
+            },
+            {
+                name: "Announcement",
+                icon: <CiCalendar />,
+                path: "/announcement",
+            },
+            {
+                name: "Pending Fee",
+                icon: <IoDocuments />,
+                path: "/pendingfee",
+            },
+        ]
+        : user === "student"
+        ? [
+            {
+                name: "Course Details",
+                icon: <CiFolderOn />,
+                path: "/",
+            },
+            {
+                name: "Announcement",
+                icon: <CiCalendar />,
+                path: "/announcement",
+            },
+            {
+                name: "Past Payments",
+                icon: <IoDocuments />,
+                path: "/past-fees",
+            },
+            {
+                name: "Pay Fees",
+                icon: <FaGooglePay />,
+                path: "/payfees",
+            },
+        ]
+        : []; 
+
+
   return (
     <>
       <div className="container">

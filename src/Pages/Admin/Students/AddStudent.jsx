@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 
 function AddStudent({addStudent , addStudentHeading , setAddStudent }) {
 

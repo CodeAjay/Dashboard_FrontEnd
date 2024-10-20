@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../Store/store";
+import { DataContext } from "../../../Store/store";
 import { FaRegEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 

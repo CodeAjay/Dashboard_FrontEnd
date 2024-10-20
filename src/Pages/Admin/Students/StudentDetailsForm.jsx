@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { DataContext } from "../../Store/store"
+import { DataContext } from "../../../Store/store"
 
 function StudentDetailsForm() {
 
