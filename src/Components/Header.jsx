@@ -1,8 +1,10 @@
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md"
+import { DataContext } from "../Store/store";
 
 function Header({ setisExpended, isExpended }) {
   const [profileDropdown, setProfileDropdown] = useState(false);
+  const {user, logout} = useContext(DataContext)
   
 
   return (
@@ -58,7 +60,7 @@ function Header({ setisExpended, isExpended }) {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={user.imageUrl}
                       alt=""
                     />
                   </button>
@@ -91,13 +93,14 @@ function Header({ setisExpended, isExpended }) {
                       Settings
                     </a>
                     <a
-                      href="#"
+                      href=""
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex={-1}
                       id="user-menu-item-2"
+                      onClick={logout}
                     >
-                      Sign out
+                      Log Out
                     </a>
                   </div>
 

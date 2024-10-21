@@ -13,8 +13,6 @@ import StPastPayments from "./Pages/StudentPortal/StPastPayments";
 import StPayFees from "./Pages/StudentPortal/StPayFees";
 import PendingFeesStudents from "./Pages/Admin/Migration/PendingFeeStudents";
 import LoginPage from "./Pages/Login";
-import ErrorBoundary from "./ErrorBoundary";
-import NotFound from "./NotFound";
 
 
 function App() {
@@ -73,7 +71,6 @@ const {user} = useContext(DataContext)
       ),
       children: [
         { path: "/", element: <StCourse/> },
-        { path:"*", element: <NotFound /> } ,
         { path: "/login", element: <LoginPage /> },
         { path: "/announcement", element: <StAnnouncement /> },
         { path: "/past-fees", element: <StPastPayments /> },
@@ -90,13 +87,13 @@ const {user} = useContext(DataContext)
     },
   ]);
 
+  // TODO: Fix the routing errors
+
   // Conditionally choose the router based on user role
   const selectedRouter = user.role === "admin" ? router : user.role === "student" ? studentRouter : loginRouter;
 
   return (
-    <ErrorBoundary>
       <RouterProvider router={selectedRouter} />
-      </ErrorBoundary>
   );
 }
 
