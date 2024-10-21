@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
+import { DataContext } from '../../Store/store';
+
 function StAnnouncement() {
 
+const { token } = useContext(DataContext);
 const [announceData , setAnnounceData ] = useState([])
 const [anEye , setAnEye] = useState(false);
-
-
 const [announced, setAnnounced ] =  useState({})
 
 const openPopup = (id) => {
@@ -26,7 +27,12 @@ useEffect(()=>{
 
     const Announcement = async ()=>{
 
-        const  announce = await fetch("http://localhost:3000/api/student/announcements");
+        const  announce = await fetch("http://localhost:3000/api/student/announcements",{
+          headers: {
+            'Content-Type': 'application/json', // Set content type
+            'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+          },
+        });
         const annData = await announce.json();
         setAnnounceData(annData)
         }

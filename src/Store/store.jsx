@@ -454,16 +454,64 @@ const updateAnFun = async () => {
     fetchInstitutes();
   }, []);
 
-const [user] = useState("admin");
-const studentId = "67139a204f62b79c645f254c"
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState("");
+  // const [studentId, setStudentId] = useState("");
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const login = async (credentials) => {
+    try {
+      const response = await fetch('http://localhost:3000/login/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setToken(data.token);
+        setUser(data.user); // Assuming backend sends user info
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // setStudentId(user._id)
+        // console.log(data, "data and student id ", user._id)
+
+        return true; // Indicate success
+      } else {
+        throw new Error(data.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error.message);
+      return false; // Indicate failure
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  };
+
+
+  const studentId=user._id;
 
 
   return (
     <DataContext.Provider
       value={{
         studentId,
-        user,
+        user, setUser, token, login, logout,
         to, setTo,
         from, setFrom,minDate,
         cardDAta,feeCollection,

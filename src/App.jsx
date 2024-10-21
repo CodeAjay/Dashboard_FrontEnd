@@ -5,13 +5,16 @@ import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import { useContext, useState } from "react";
 import Students from "./Pages/Admin/Students/Students";
 import Announcement from "./Pages/Admin/Announcement/Announcement";
-import Migration from "./Pages/Admin/Migration/Migration";
 import Courses from "./Pages/Admin/Courses/Courses";
 import { DataContext } from "./Store/store";
 import StAnnouncement from "./Pages/StudentPortal/StAnnouncement";
 import StCourse from "./Pages/StudentPortal/StCourse";
 import StPastPayments from "./Pages/StudentPortal/StPastPayments";
 import StPayFees from "./Pages/StudentPortal/StPayFees";
+import PendingFeesStudents from "./Pages/Admin/Migration/PendingFeeStudents";
+import LoginPage from "./Pages/Login";
+import ErrorBoundary from "./ErrorBoundary";
+import NotFound from "./NotFound";
 
 
 function App() {
@@ -41,10 +44,11 @@ const {user} = useContext(DataContext)
       ),
       children: [
         { path: "/", element: <Dashboard /> },
+        { path: "/login", element: <LoginPage /> },
         { path: "/students", element: <Students /> },
         { path: "/courses", element: <Courses /> },
         { path: "/announcement", element: <Announcement /> },
-        { path: "/pendingfee", element: <Migration /> },
+        { path: "/pendingfee", element: <PendingFeesStudents /> },
       ],
     },
   ]);
@@ -69,6 +73,8 @@ const {user} = useContext(DataContext)
       ),
       children: [
         { path: "/", element: <StCourse/> },
+        { path:"*", element: <NotFound /> } ,
+        { path: "/login", element: <LoginPage /> },
         { path: "/announcement", element: <StAnnouncement /> },
         { path: "/past-fees", element: <StPastPayments /> },
         { path: "/payfees", element: <StPayFees /> },
@@ -76,10 +82,21 @@ const {user} = useContext(DataContext)
     },
   ]);
 
-  return (
   
-      <RouterProvider router={user === "admin" ? router : user === "student" ? studentRouter : router} />
-   
+  const loginRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <LoginPage />,
+    },
+  ]);
+
+  // Conditionally choose the router based on user role
+  const selectedRouter = user.role === "admin" ? router : user.role === "student" ? studentRouter : loginRouter;
+
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={selectedRouter} />
+      </ErrorBoundary>
   );
 }
 

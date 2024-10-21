@@ -20,7 +20,7 @@ function PendingFeesStudents() {
       );
       const resPending = await pendingFees.json();
       console.log(resPending, "resPending");
-      setStudentPending(resPending.notPaidStudents || []); // Safeguard for no data
+      setStudentPending(resPending || []); // Safeguard for no data
     } catch (error) {
       console.error("Error fetching pending fees:", error);
     }
@@ -57,6 +57,9 @@ function PendingFeesStudents() {
                   <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                     COURSE ENROLLED
                   </th>
+                  <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                    Fee Pending
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -67,24 +70,24 @@ function PendingFeesStudents() {
                         <div className="flex-shrink-0 w-10 h-10">
                           <img
                             className="w-10 h-10 rounded-full"
-                            src={items.imageUrl}
+                            src={items.student.imageUrl}
                             alt=""
                           />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium leading-5 text-gray-900">
-                            {items.name}
+                            {items.student.name}
                           </div>
                           <div className="text-sm leading-5 text-gray-500">
-                            {items.email}
+                            {items.student.email}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="text-sm leading-5 text-gray-500">
-                        {items.institute_id
-                          ? items.institute_id.institute_name
+                        {items.student.institute_id
+                          ? items.student.institute_id.institute_name
                           : "N/A"}
                       </div>
                     </td>
@@ -94,7 +97,10 @@ function PendingFeesStudents() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                      {items.course_id ? items.course_id.courseName : "N/A"}
+                      {items.student.course_id ? items.student.course_id.courseName : "N/A"}
+                    </td>
+                    <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                      {items.pendingFee ? items.pendingFee : "N/A"}
                     </td>
                   </tr>
                 ))}

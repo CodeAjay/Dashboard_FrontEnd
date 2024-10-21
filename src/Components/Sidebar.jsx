@@ -13,7 +13,7 @@ function Sidebar({ setisExpended, isExpended }) {
   
   const {user} = useContext(DataContext);
 
-  const Links = user === "admin" 
+  const Links = user.role === "admin" 
         ? [
             {
                 name: "Dashboard",
@@ -41,7 +41,7 @@ function Sidebar({ setisExpended, isExpended }) {
                 path: "/pendingfee",
             },
         ]
-        : user === "student"
+        : user.role === "student"
         ? [
             {
                 name: "Course Details",
