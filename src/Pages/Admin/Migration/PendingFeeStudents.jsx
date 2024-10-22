@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../../Store/store";
 
 function PendingFeesStudents() {
   const [studentPending, setStudentPending] = useState([]);
+  const {token}=useContext(DataContext);
 
   const currentYear = new Date().getFullYear();
   const currentMonth = String(new Date().getMonth() + 1).padStart(2, "0"); // Ensure two digits
@@ -16,7 +18,12 @@ function PendingFeesStudents() {
   const pending = async () => {
     try {
       const pendingFees = await fetch(
-        `http://localhost:3000/fee-collection/payment-status/${penYear}`
+        `http://localhost:3000/fee-collection/payment-status/${penYear}`,{
+          headers: {
+            'Content-Type': 'application/json', // Set content type
+            'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+          },
+        }
       );
       const resPending = await pendingFees.json();
       console.log(resPending, "resPending");

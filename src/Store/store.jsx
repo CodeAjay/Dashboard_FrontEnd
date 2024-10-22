@@ -6,10 +6,56 @@ export const DataContext = createContext();
 
 function Store({ children }) {
 
+  
+  const [user, setUser] = useState(localStorage.getItem('user') || "");
+  const [token, setToken] = useState(localStorage.getItem('token') || "");
   const currentYear = new Date().getFullYear();
   const currentMonth = String(new Date().getMonth() + 1).padStart(2, "0"); 
   const [addStudent, setAddStudent] = useState([]);
+  const [clerkAddStudent, setClerkAddStudent] = useState([]);
   const [courses, setCourses] = useState([]);
+
+  
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const login = async (credentials) => {
+    try {
+      const response = await fetch('http://localhost:3000/login/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+        },
+        body: JSON.stringify(credentials),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setToken(data.token);
+        setUser(data.user); // Assuming backend sends user info
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // setStudentId(user._id)
+        // console.log(data, "data and student id ", user._id)
+
+        return true; // Indicate success
+      } else {
+        throw new Error(data.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error.message);
+      return false; // Indicate failure
+    }
+  };
+
+
   const [feeCollection, setFeeCollection]=useState({
     totalFeeCollected:"",
     monthlyCollections:""
@@ -28,7 +74,10 @@ function Store({ children }) {
     try {
       const feeColl = await fetch("http://localhost:3000/fee-collection/fees", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                'Content-Type': 'application/json', // Set content type
+                'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+              },
               body: JSON.stringify({from,to})
             });
       
@@ -45,7 +94,7 @@ function Store({ children }) {
 
   useEffect(()=>{
     feee()
-  },[from, to])
+  },[from, to, token])
 
   // Dashboard Card Data
   const cardDAta = [
@@ -119,15 +168,39 @@ function Store({ children }) {
 
   // Add Student API Data
   const addStudentData = async () => {
-    const listedStudent = await fetch(
-      "http://localhost:3000/students"
-    );
+    const listedStudent = await fetch("http://localhost:3000/students", {
+      headers: {
+        'Content-Type': 'application/json', // Set content type
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+      },
+    });
     const data = await listedStudent.json();
     setAddStudent(data);
+
+    console.log(data, "addStudent")
   };
   useEffect(() => {
     addStudentData();
-  }, []);
+  }, [token]);
+
+
+    // Add Student API Data
+    const clerkAddStudentData = async () => {
+      const listedStudent = await fetch("http://localhost:3000/clerk/students", {
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+        },
+      });
+      const data = await listedStudent.json();
+      setClerkAddStudent(data);
+  
+      console.log(data, "addStudent")
+    };
+    useEffect(() => {
+      clerkAddStudentData();
+    }, [token]);
+
   // Dashboard StudenList Headings
 
   const studentHeading = [
@@ -150,15 +223,18 @@ function Store({ children }) {
   // Dashboard StudentList
   const [studentsList, setStudentList] = useState([]);
   const studentList = async () => {
-    const studentListData = await fetch(
-      "http://localhost:3000/students"
-    );
+    const studentListData = await fetch("http://localhost:3000/students", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+      },
+    });
     const studentData = await studentListData.json();
     setStudentList(studentData);
   };
   useEffect(() => {
     studentList();
-  }, []);
+  }, [token]);
 
 
 
@@ -175,7 +251,12 @@ function Store({ children }) {
   useEffect(() => {
     const showCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/courses");
+        const response = await fetch("http://localhost:3000/courses", {
+          headers: {
+            'Content-Type': 'application/json', // Set content type
+            'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+          },
+        });
         const data = await response.json();
         setCourses(data);
       } catch (error) {
@@ -183,7 +264,7 @@ function Store({ children }) {
       }
     };
     showCourses();
-  }, [addStudent]);
+  }, [addStudent, token]);
 
   // Open popup for adding/updating course
   const handleCoursePopup = () => {
@@ -284,7 +365,10 @@ console.log(id)
     try {
       const response = await fetch(`http://localhost:3000/courses/${updateCourseData._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+        },
         body: JSON.stringify({
           courseName: courseName,
           imageUrl:courseImage,
@@ -323,7 +407,12 @@ const [announcPopup, setAnnouncePopup] = useState(false);
 useEffect(() => {
   const fetchAnnouncements = async () => {
     try {
-      const response = await fetch("http://localhost:3000/announcements");
+      const response = await fetch("http://localhost:3000/announcements", {
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+        },
+      });
       const data = await response.json();
       setAnnounce(data);
       // console.log(data);
@@ -333,7 +422,7 @@ useEffect(() => {
   };
 
   fetchAnnouncements();
-}, []);
+}, [token]);
 
 // Open popup for new announcement
 const handleAnnouncementPopup = () => {
@@ -406,7 +495,10 @@ const updateAnFun = async () => {
     // Send updated announcement to the backend
     const response = await fetch(`http://localhost:3000/announcements/${updateAnData._id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'Content-Type': 'application/json', // Set content type
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+      },
       body: JSON.stringify({ title: anTitle, description: anDes }),
     });
 
@@ -438,7 +530,12 @@ const updateAnFun = async () => {
 
   const fetchInstitutes = async () => {
     try {
-      const result = await fetch("http://localhost:3000/institutes");
+      const result = await fetch("http://localhost:3000/institutes", {
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+        },
+      });
       if (result.status === 200) {
         const data = await result.json(); // Convert response to JSON
         setInstitutes(data); // Update state with the JSON data
@@ -452,49 +549,9 @@ const updateAnFun = async () => {
 
   useEffect(() => {
     fetchInstitutes();
-  }, []);
+  }, [token]);
 
-  const [user, setUser] = useState({});
-  const [token, setToken] = useState("");
   // const [studentId, setStudentId] = useState("");
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const login = async (credentials) => {
-    try {
-      const response = await fetch('http://localhost:3000/login/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        setToken(data.token);
-        setUser(data.user); // Assuming backend sends user info
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        // setStudentId(user._id)
-        // console.log(data, "data and student id ", user._id)
-
-        return true; // Indicate success
-      } else {
-        throw new Error(data.message || 'Login failed');
-      }
-    } catch (error) {
-      console.error('Login error:', error.message);
-      return false; // Indicate failure
-    }
-  };
 
   const logout = () => {
     setUser(null);
@@ -519,6 +576,7 @@ const updateAnFun = async () => {
         studentHeading,
         addStudentHeading,
         addStudent,
+        clerkAddStudent,setClerkAddStudent,
         handleOnclick,
         removeOnclick,
         popup,

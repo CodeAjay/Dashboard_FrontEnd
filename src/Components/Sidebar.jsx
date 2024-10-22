@@ -64,7 +64,29 @@ function Sidebar({ setisExpended, isExpended }) {
                 path: "/payfees",
             },
         ]
-        : []; 
+        : user.role === "clerk"
+        ? [
+            {
+                name: "Dashboard",
+                icon: <CiFolderOn />,
+                path: "/",
+            },
+            {
+                name: "Students",
+                icon: <CiCalendar />,
+                path: "/students",
+            },
+            {
+                name: "Pending Fee",
+                icon: <IoDocuments />,
+                path: "/pending-fee",
+            },
+            {
+                name: "Fee Payment",
+                icon: <FaGooglePay />,
+                path: "/payfees",
+            },
+        ]:[]; 
 
 
   return (
