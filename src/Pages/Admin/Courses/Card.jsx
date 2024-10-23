@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { ImUsers } from "react-icons/im";
 import { MdDelete } from "react-icons/md";
-import { DataContext } from "../../../Store/store";
+import { AdminDataContext } from "../AdiminData";
 function Card({ courseItems , index}) {
   const {_id,   imageUrl, student, courseName, studentsEnrolled, institute_id } = courseItems;
   // console.log(courseItems)
 
-  const{deleteCourseItem , editCourseData, courses} = useContext(DataContext)
+  const{deleteCourseItem , editCourseData, courses} = useContext(AdminDataContext)
   return (
     <>
       <div   className="relative flex flex-col mb-2 bg-white shadow-sm border border-slate-200 rounded-lg w-96">

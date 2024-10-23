@@ -1,11 +1,11 @@
 import { IoAddCircle } from "react-icons/io5";
 import StudentDetailsForm from "./StudentDetailsForm";
 import { useContext } from "react";
-import { DataContext } from "../../../Store/store";
+import { AdminDataContext } from "../AdiminData";
 
 function AddStudentButton() {
 
-const {popup, handleOnclick ,removeOnclick } = useContext(DataContext)
+const {popup, handleOnclick ,removeOnclick } = useContext(AdminDataContext)
   return (
     <>
       <button

@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
+import { AdminDataContext } from "../AdiminData";
 import { DataContext } from "../../../Store/store";
 
 function AnnouncementForm() {
-    const {handleAnnouncmentContent,anTitle, anDes, anbtn,setAnTitle, setAnDes,announce, setAnnounce,updateAnFun, setAnnouncePopup} = useContext(DataContext)
-
+    const {handleAnnouncmentContent,anTitle, anDes, anbtn,setAnTitle, setAnDes,announce, setAnnounce,updateAnFun, setAnnouncePopup} = useContext(AdminDataContext)
+const {token} = useContext(DataContext)
     // const [title, setTitle]=useState("")
     // const [description, setDescription]=useState("")
 
@@ -11,7 +12,8 @@ function AnnouncementForm() {
       const response = await fetch("http://localhost:3000/announcements", {
         method:"POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json', // Set content type
+          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
         },
         body: JSON.stringify({ title:anTitle, description:anDes }),
       }

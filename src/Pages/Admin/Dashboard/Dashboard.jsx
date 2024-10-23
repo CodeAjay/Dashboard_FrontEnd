@@ -3,22 +3,21 @@ import { CategoryScale } from "chart.js";
 
 import React, { useContext } from "react";
 import Cart from "./Cart";
-import { DataContext } from "../../../Store/store";
-import StudentsList from "./StudentsList";
-// import { Data } from "./Data";
+
 import { FeeChart, transformFeeData } from './Chart';
 import PendingFeesStudents from "../Migration/PendingFeeStudents";
+import {AdminDataContext} from "../AdiminData";
 
 Chart.register(CategoryScale);
 
 function Dashboard() {
-  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate , user1} = useContext(DataContext);
-console.log(user1,"user1")
+  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate , user1} = useContext(AdminDataContext);
 
-console.log(from,"from")
-console.log(to,"to")
+  console.log(feeCollection, "feeCollection");
 
-  const chartData = transformFeeData(feeCollection.monthlyCollections);
+  // Safely access monthlyCollections
+  const chartData = transformFeeData(feeCollection?.monthlyCollections || []);
+
 console.log(chartData, "chartData")
 
   return (

@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { IoAddCircle } from "react-icons/io5";
-import { DataContext } from "../../../Store/store";
 import AnnouncementForm from "./AnnouncementForm";
+import { AdminDataContext } from "../AdiminData";
 
 function AddAnnoucmentBtn() {
 
-const {handleAnnouncementPopup ,announcPopup , removeAnnouncementPopup } = useContext(DataContext)
+const {handleAnnouncementPopup ,announcPopup , removeAnnouncementPopup } = useContext(AdminDataContext)
 
   return (
     <>

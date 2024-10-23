@@ -1,10 +1,11 @@
 import { useContext, useState } from "react"
+import { AdminDataContext } from "../AdiminData"
 import { DataContext } from "../../../Store/store"
 
 function StudentDetailsForm() {
 
-  const {handleContentClick , addStudent, setAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(DataContext)
-
+  const {handleContentClick , addStudent, setAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(AdminDataContext)
+const {token} = useContext(DataContext)
 
 
 
@@ -37,7 +38,8 @@ const handleStudentAdded = async () => {
     const response = await fetch('http://localhost:3000/students', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', // Set content type
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
       },
       body: JSON.stringify(newStudent),
     });
@@ -91,7 +93,8 @@ const handleStudentUpdate = async () => {
     const response = await fetch(`http://localhost:3000/students/${updateData._id}`, {
       method: 'PUT', // Or 'PATCH' if your API uses that for updates
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', // Set content type
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
       },
       body: JSON.stringify(updatedStudent),
     });

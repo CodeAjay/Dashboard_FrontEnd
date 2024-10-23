@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { IoAddCircle } from "react-icons/io5";
-import { DataContext } from "../../../Store/store";
 import CourseForm from "./CourseForm";
+import { AdminDataContext } from "../AdiminData";
 function AddCourseBtn() {
-const {handleCoursePopup , coursePopup , removeCoursePopup} = useContext(DataContext)
+const {handleCoursePopup , coursePopup , removeCoursePopup} = useContext(AdminDataContext)
 
   return (
     <>

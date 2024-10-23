@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
-import { DataContext } from "../../../Store/store"
+import { AdminDataContext } from "../AdiminData";
+import { DataContext } from "../../../Store/store";
 
 function CourseForm() {
-const {contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(DataContext)    
-
+const {contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(AdminDataContext)    
+const {token} = useContext(DataContext)
 const addCourse = async () => {
   // Prepare the data for the new course
   const data = {
@@ -18,7 +19,8 @@ const addCourse = async () => {
     const response = await fetch("http://localhost:3000/courses", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json', // Set content type
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
       },
       body: JSON.stringify(data)
     });
