@@ -17,6 +17,8 @@ import FeeCollection from "./Pages/Clerk/FeeCollection";
 import Student from "./Pages/Clerk/Students/Students"
 import ClerkDashboard from "./Pages/Clerk/Dashboard"
 import AdminDataProvider from "./Pages/Admin/AdiminData";
+import StudentData from "./Pages/StudentPortal/StudentData";
+import ClerkData from "./Pages/Clerk/ClerkData";
 
 
 
@@ -152,10 +154,10 @@ let selectedRouter;
       );
       break;
     case "student":
-      selectedRouter = <RouterProvider router={studentRouter} />;
+      selectedRouter = <StudentData> <RouterProvider router={studentRouter} /></StudentData>;
       break;
     case "clerk":
-      selectedRouter = <RouterProvider router={clerkRouter} />;
+      selectedRouter = <ClerkData><RouterProvider router={clerkRouter} /></ClerkData>;
       break;
     default:
       selectedRouter = <RouterProvider router={loginRouter} />;

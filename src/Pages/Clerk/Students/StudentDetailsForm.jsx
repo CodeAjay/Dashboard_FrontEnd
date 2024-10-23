@@ -1,12 +1,14 @@
 import { useContext, useState } from "react"
+import  { ClerkDataContext } from "../ClerkData"
 import { DataContext } from "../../../Store/store"
 
 function StudentDetailsForm() {
 
-  const {handleContentClick , clerkAddStudent, setClerkAddStudent, courses, setPopup ,updateData, btn, institutes} = useContext(DataContext)
+const {token}=useContext(DataContext)
+  const {handleContentClick , clerkAddStudent, setClerkAddStudent, courses , setPopup ,updateData, btn, institutes} = useContext(ClerkDataContext)
 
 
-
+console.log(courses,"courses", institutes, "institutes")
 
 
 const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
@@ -37,7 +39,8 @@ const handleStudentAdded = async () => {
     const response = await fetch('http://localhost:3000/clerk/students', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json", // Set content type
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },
       body: JSON.stringify(newStudent),
     });
@@ -91,7 +94,8 @@ const handleStudentUpdate = async () => {
     const response = await fetch(`http://localhost:3000/clerk/students/${updateData._id}`, {
       method: 'PUT', // Or 'PATCH' if your API uses that for updates
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json", // Set content type
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },
       body: JSON.stringify(updatedStudent),
     });
@@ -99,7 +103,7 @@ const handleStudentUpdate = async () => {
     if (response.ok) {
       const newStudent = await response.json();
       // Update the student in the local state
-      setAddStudent((prevAddStudent) => {
+      setClerkAddStudent((prevAddStudent) => {
         const studentIndex = prevAddStudent.findIndex((student) => student._id === updateData._id);
         
         if (studentIndex !== -1) {

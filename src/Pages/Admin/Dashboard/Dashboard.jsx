@@ -11,7 +11,7 @@ import {AdminDataContext} from "../AdiminData";
 Chart.register(CategoryScale);
 
 function Dashboard() {
-  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate , user1} = useContext(AdminDataContext);
+  const { cardDAta, feeCollection ,to, setTo,from, setFrom,minDate } = useContext(AdminDataContext);
 
   console.log(feeCollection, "feeCollection");
 

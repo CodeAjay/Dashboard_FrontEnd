@@ -9,25 +9,6 @@ function Store({ children }) {
 
  
 
-  const [clerkAddStudent, setClerkAddStudent] = useState([]);
-     // AddStudent  clerk API Data
-     const clerkAddStudentData = async () => {
-      const listedStudent = await fetch("http://localhost:3000/clerk/students", {
-        headers: {
-          'Content-Type': 'application/json', // Set content type
-          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
-        },
-      });
-      const data = await listedStudent.json();
-      setClerkAddStudent(data);
-  
-      console.log(data, "addStudent")
-    };
-    useEffect(() => {
-      clerkAddStudentData();
-    }, [token]);
- 
-
     
  
   useEffect(() => {
@@ -97,7 +78,6 @@ function Store({ children }) {
         // studentHeading,
         // addStudentHeading,
         // addStudent,
-        clerkAddStudent,setClerkAddStudent,
         // handleOnclick,
         // removeOnclick,
         // popup,
