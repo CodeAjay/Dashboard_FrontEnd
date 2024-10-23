@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
+import  { ClerkDataContext } from "../ClerkData";
 import { DataContext } from "../../../Store/store";
 
 function AddStudent({clerkAddStudent , addStudentHeading , setClerkAddStudent }) {
 
-const {handleUpdate} = useContext(DataContext)
+  const {token}= useContext(DataContext)
+const {handleUpdate} = useContext(ClerkDataContext)
 
 
-
+console.log(clerkAddStudent,"clerkAddStudent")
 
 
 
@@ -18,6 +20,10 @@ const handleDeleteBtn = async (id) => {
       try {
         await fetch(`http://localhost:3000/clerk/students/${id}`, {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json", // Set content type
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
         });
         const remainingStudents = clerkAddStudent.filter((item) => item._id !== id);
         setClerkAddStudent(remainingStudents);

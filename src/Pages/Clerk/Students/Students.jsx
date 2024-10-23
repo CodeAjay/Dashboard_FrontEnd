@@ -1,9 +1,9 @@
 import AddStudent from "./AddStudent"
 import { useContext } from "react";
-import { DataContext } from "../../../Store/store";
 import AddStudentButton from "./AddStudentButton";
+import  { ClerkDataContext } from "../ClerkData";
 function Students() {
-  const { addStudentHeading ,clerkAddStudent, setClerkAddStudent,setPopup} = useContext(DataContext);
+  const { addStudentHeading ,clerkAddStudent, setClerkAddStudent,setPopup} = useContext(ClerkDataContext);
 
 
   return (
@@ -12,7 +12,7 @@ function Students() {
   <div className="flex justify-end w-[97.5%] ">
   <AddStudentButton/>
   </div>
-<AddStudent addStudent={clerkAddStudent}  addStudentHeading={addStudentHeading} setAddStudent={setClerkAddStudent} setPopup={setPopup}/>
+<AddStudent clerkAddStudent={clerkAddStudent}  addStudentHeading={addStudentHeading} setClerkAddStudent={setClerkAddStudent} setPopup={setPopup}/>
 </div>
   </>
   )

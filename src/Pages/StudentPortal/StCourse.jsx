@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 function StCourse() {
   const [course, setCourse] = useState({});
   const { studentId, token } = useContext(DataContext);
-
+console.log(studentId)
   useEffect(() => {
     const courseEnrolled = async () => {
       const courseDetail = await fetch(`http://localhost:3000/api/student/${studentId}/course-details`, {
@@ -21,7 +21,7 @@ function StCourse() {
     courseEnrolled();
   }, [studentId]);
 
- 
+ console.log(course, "course")
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-CA'); 

@@ -456,7 +456,7 @@ const updateAnFun = async () => {
         
         // to, setTo,
         // from, setFrom,minDate,
-        // feeCollection,
+        feeCollection,
         studentsList,
         studentHeading,
         addStudentHeading,

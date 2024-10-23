@@ -15,6 +15,7 @@ function StPastPayments() {
       })
       const paymentsData = await pastPayments.json()
       setPayment(paymentsData)
+      console.log(paymentsData,"paymentsData")
     }
     payments()
 
