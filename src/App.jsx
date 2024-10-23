@@ -16,8 +16,8 @@ import LoginPage from "./Pages/Login";
 import FeeCollection from "./Pages/Clerk/FeeCollection";
 import Student from "./Pages/Clerk/Students/Students"
 import ClerkDashboard from "./Pages/Clerk/Dashboard"
-// import ErrorBoundary from "./ErrorBoundary";
-// import NotFound from "./NotFound";
+import AdminDataProvider from "./Pages/Admin/AdiminData";
+
 
 
 function App() {
@@ -56,6 +56,9 @@ const {user} = useContext(DataContext)
       ],
     },
   ]);
+
+
+
 
   const studentRouter = createBrowserRouter([
     {
@@ -111,6 +114,7 @@ const {user} = useContext(DataContext)
         { path: "/announcement", element: <StAnnouncement /> },
         { path: "/fee-collection", element: <FeeCollection /> },
         { path: "/students", element: <Student /> },
+        { path: "/payfees", element: <Student /> },
       ],
     },
   ]);
@@ -123,16 +127,41 @@ const {user} = useContext(DataContext)
     },
   ]);
 
-  // TODO: Fix the routing errors
+ // TODO: Fix the routing errors
 
-  // Conditionally choose the router based on user role
-  const selectedRouter = user.role === "admin" ? router : user.role === "student" ? studentRouter : user.role === "clerk" ? clerkRouter : loginRouter;
+// Conditionally choose the router based on user role 
+//   const selectedRouter = user.role === "admin" ? <AdminDataProvider>{router}</AdminDataProvider> : user.role === "student" ? studentRouter : user.role === "clerk" ? clerkRouter : loginRouter;
 
-  return (
-    // <ErrorBoundary>
-      <RouterProvider router={selectedRouter} />
+//   return (
+//     // <ErrorBoundary>
+//       <RouterProvider router={selectedRouter} />
 
-  );
+//   );
+// }
+
+
+
+let selectedRouter;
+
+  switch (user.role) {
+    case "admin":
+      selectedRouter = (
+        <AdminDataProvider>
+          <RouterProvider router={router} />
+        </AdminDataProvider>
+      );
+      break;
+    case "student":
+      selectedRouter = <RouterProvider router={studentRouter} />;
+      break;
+    case "clerk":
+      selectedRouter = <RouterProvider router={clerkRouter} />;
+      break;
+    default:
+      selectedRouter = <RouterProvider router={loginRouter} />;
+  }
+
+  return selectedRouter;
 }
 
 export default App;

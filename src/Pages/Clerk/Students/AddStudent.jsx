@@ -19,7 +19,7 @@ const handleDeleteBtn = async (id) => {
         await fetch(`http://localhost:3000/clerk/students/${id}`, {
           method: "DELETE",
         });
-        const remainingStudents = addStudent.filter((item) => item._id !== id);
+        const remainingStudents = clerkAddStudent.filter((item) => item._id !== id);
         setClerkAddStudent(remainingStudents);
       } catch (error) {
         console.error("Error deleting course:", error);

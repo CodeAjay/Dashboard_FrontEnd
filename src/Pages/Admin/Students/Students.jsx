@@ -1,9 +1,9 @@
 import AddStudent from "./AddStudent"
 import { useContext } from "react";
-import { DataContext } from "../../../Store/store";
 import AddStudentButton from "./AddStudentButton";
+import { AdminDataContext } from "../AdiminData";
 function Students() {
-  const { addStudentHeading ,addStudent, setAddStudent,setPopup} = useContext(DataContext);
+  const { addStudentHeading ,addStudent, setAddStudent,setPopup} = useContext(AdminDataContext);
 
 
   return (

@@ -79,7 +79,7 @@ function Sidebar({ setisExpended, isExpended }) {
             {
                 name: "Pending Fee",
                 icon: <IoDocuments />,
-                path: "/pending-fee",
+                path: "/fee-collection",
             },
             {
                 name: "Fee Payment",

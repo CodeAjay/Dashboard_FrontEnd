@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import Card from "./Card";
-import { DataContext } from "../../../Store/store";
 import AddCourseBtn from "./AddCourseBtn";
+import { AdminDataContext } from "../AdiminData";
 
 function Courses() {
-  const { courses } = useContext(DataContext);
+  const { courses } = useContext(AdminDataContext);
 
   // console.log(courses)
 

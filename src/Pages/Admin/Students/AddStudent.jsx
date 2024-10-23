@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
-import { DataContext } from "../../../Store/store";
+import { AdminDataContext } from "../AdiminData";
 
 function AddStudent({addStudent , addStudentHeading , setAddStudent }) {
 
-const {handleUpdate} = useContext(DataContext)
+const {handleUpdate} = useContext(AdminDataContext)
 
 
 

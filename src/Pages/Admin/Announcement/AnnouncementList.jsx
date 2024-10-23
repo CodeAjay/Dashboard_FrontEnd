@@ -1,16 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../../Store/store";
 import { FaRegEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { AdminDataContext } from "../AdiminData";
+import { DataContext } from "../../../Store/store";
 
 function AnnouncementList() {
-  const { announce ,setAnnounce, handleAnnEdit} = useContext(DataContext);
-  // const [date, setDate] = useState("");
-  // useEffect(() => {
-  //   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  //   const currentDate = new Date().toLocaleDateString(undefined, options);
-  //   setDate(currentDate);
-  // }, []);
+  const { announce ,setAnnounce, handleAnnEdit} = useContext(AdminDataContext);
+const {token} = useContext(DataContext)
 
   const [eyePop, setEyePop] = useState(false);
   const [preview , setPreview] = useState([])
@@ -35,6 +31,10 @@ console.log("edit announcement content", Ant)
         // Make the DELETE request to the backend
         const response = await fetch(`http://localhost:3000/announcements/${deleteAnt._id}`, {
           method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json', // Set content type
+            'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+          },
         });
   
         if (!response.ok) {
