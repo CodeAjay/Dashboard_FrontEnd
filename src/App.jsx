@@ -13,12 +13,13 @@ import StPastPayments from "./Pages/StudentPortal/StPastPayments";
 import StPayFees from "./Pages/StudentPortal/StPayFees";
 import PendingFeesStudents from "./Pages/Admin/Migration/PendingFeeStudents";
 import LoginPage from "./Pages/Login";
-import FeeCollection from "./Pages/Clerk/FeeCollection";
 import Student from "./Pages/Clerk/Students/Students"
 import ClerkDashboard from "./Pages/Clerk/Dashboard"
 import AdminDataProvider from "./Pages/Admin/AdiminData";
 import StudentData from "./Pages/StudentPortal/StudentData";
 import ClerkData from "./Pages/Clerk/ClerkData";
+import PendingFeesStudentsClerk from "./Pages/Clerk/PendingFeesStudentsClerk";
+import ClerkFeePayment from "./Pages/Clerk/ClerkFeePayment";
 
 
 
@@ -114,9 +115,9 @@ const {user} = useContext(DataContext)
         { path: "/", element: <ClerkDashboard /> },
         { path: "/login", element: <LoginPage /> },
         { path: "/announcement", element: <StAnnouncement /> },
-        { path: "/fee-collection", element: <FeeCollection /> },
+        { path: "/fee-collection", element: <PendingFeesStudentsClerk/> },
         { path: "/students", element: <Student /> },
-        { path: "/payfees", element: <Student /> },
+        { path: "/payfees", element: <ClerkFeePayment/> },
       ],
     },
   ]);
@@ -129,17 +130,7 @@ const {user} = useContext(DataContext)
     },
   ]);
 
- // TODO: Fix the routing errors
-
-// Conditionally choose the router based on user role 
-//   const selectedRouter = user.role === "admin" ? <AdminDataProvider>{router}</AdminDataProvider> : user.role === "student" ? studentRouter : user.role === "clerk" ? clerkRouter : loginRouter;
-
-//   return (
-//     // <ErrorBoundary>
-//       <RouterProvider router={selectedRouter} />
-
-//   );
-// }
+ 
 
 
 
