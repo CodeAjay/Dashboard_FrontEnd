@@ -1,6 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
+import { Link } from "react-router-dom";
+
 function ClerkFeePayment() {
+  // const navigate = useNavigate(); // React Router v6 hook for navigation
+
   const [amount, setAmount] = useState("");
   const [payDate, setPayDate] = useState("");
 //   const [payDateCurrent, setPayDateCurrent] = useState("");
@@ -196,7 +200,10 @@ function ClerkFeePayment() {
                             >
                               Pay Now
                             </button>
+
+                            <Link to={`/payment-details/${list._id}`}>View Payment Details</Link>
                           </div>
+                          
                         </td>
                       </tr>
                     );
@@ -255,15 +262,15 @@ function ClerkFeePayment() {
 
               <div className="bg-gray-100 p-4 rounded-lg shadow-inner w-full mb-4">
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Total Fees:</span> $
+                  <span className="font-semibold">Total Fees:</span> ₹
                   {stdFeeDetails?.student?.course_id?.totalFee}
                 </p>
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Fees Paid:</span> $
+                  <span className="font-semibold">Fees Paid:</span> ₹
                   {stdFeeDetails?.student?.fee}
                 </p>
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Pending Fees:</span> $
+                  <span className="font-semibold">Pending Fees:</span> ₹
                   {stdFeeDetails?.totalPending}
                 </p>
                 <p className="text-md text-gray-700">

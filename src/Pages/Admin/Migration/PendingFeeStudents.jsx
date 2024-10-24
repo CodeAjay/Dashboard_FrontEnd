@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../../Store/store";
+import { Link } from "react-router-dom";
 
 function PendingFeesStudents() {
   const [studentPending, setStudentPending] = useState([]);
@@ -109,6 +110,8 @@ function PendingFeesStudents() {
                     <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                       {items.pendingFee ? items.pendingFee : "N/A"}
                     </td>
+                    <td>
+                    <Link to={`/payment-details/${items?.student?._id}`}>View Payment Details</Link></td>
                   </tr>
                 ))}
               </tbody>
