@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import  { ClerkDataContext } from "../ClerkData"
 import { DataContext } from "../../../Store/store"
 
@@ -134,11 +134,52 @@ const handleStudentUpdate = async () => {
 
 
 
+
+const [userCloudProfile, setUserCloudProfile] = useState("");
+  const [isUploading, setIsUploading] = useState(false); // State for upload status
+  const fileInputRef = useRef(null);
+
+  const addCloudinary = (e) => {
+    const file = e.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "myCloud");
+    data.append("cloud_name", "di3ca2pjm");
+
+    setIsUploading(true); // Set uploading state to true
+
+    fetch("https://api.cloudinary.com/v1_1/di3ca2pjm/image/upload", {
+      method: "POST",
+      body: data,
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setUserCloudProfile(data.secure_url); // Store the image URL
+      setUserProfile(data.secure_url); // Store the image URL
+      setIsUploading(false); // Reset uploading state
+    })
+    .catch((error) => {
+      console.error("Error uploading to Cloudinary:", error);
+      setIsUploading(false); // Reset uploading state on error
+    });
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+
+
+
+
+
+
+
   return (
     <div className="w-full max-w-[40%]" onClick={handleContentClick}>
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="flex gap-3">
-      <div className="mb-4 w-[100%]">
+      {/* <div className="mb-4 w-[100%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -153,7 +194,50 @@ const handleStudentUpdate = async () => {
           type="text"
           placeholder="User Profile Url"
         />
-      </div>
+      </div> */}
+{/* cloud  */}
+
+
+<div className="flex flex-col items-center">
+      {isUploading ? (
+        <div className="border-dashed border-2 border-gray-400 w-32 h-32 flex items-center justify-center mb-4">
+          <span className="text-gray-500">Uploading...</span>
+        </div>
+      ) : userCloudProfile ? (
+        <img 
+          src={userCloudProfile} 
+          alt="Uploaded Profile" 
+          className=" object-cover mb-4 cursor-pointer text-center max-w-[100px] max-h-[100px] rounded-full text-[14px]" 
+          onClick={handleImageClick} 
+        />
+      ) : (
+        userProfile?(
+        <img 
+          src={userProfile} 
+          alt="Uploaded Profile" 
+          className=" object-cover mb-4 cursor-pointer text-center max-w-[100px] max-h-[100px] rounded-full text-[14px]" 
+          onClick={handleImageClick} 
+        />):
+        (
+        <div 
+          className="border-dashed border-2 text-center w-[100px] h-[100px] rounded-full text-[14px] border-gray-400  flex items-center justify-center mb-4 cursor-pointer" 
+          onClick={handleImageClick} 
+        >
+          <span className="text-gray-500">Upload your profile</span>
+        </div>
+      )
+      )}
+      <input
+        ref={fileInputRef}
+        className="hidden"
+        onChange={addCloudinary}
+        type="file"
+        accept="image/*"
+      />
+    </div>
+
+{/* end  */}
+
       <div className="mb-4 w-[100%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
