@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../../Store/store";
 import { Link } from "react-router-dom";
+import { GrView } from "react-icons/gr";
 
 function PendingFeesStudents() {
   const [studentPending, setStudentPending] = useState([]);
@@ -68,6 +69,9 @@ function PendingFeesStudents() {
                   <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                     Fee Pending
                   </th>
+                  <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                    Payment Details
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -110,8 +114,9 @@ function PendingFeesStudents() {
                     <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                       {items.pendingFee ? items.pendingFee : "N/A"}
                     </td>
-                    <td>
-                    <Link to={`/payment-details/${items?.student?._id}`}>View Payment Details</Link></td>
+                    <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                    <Link to={`/payment-details/${items?.student?._id}`} className="flex gap-3 items-center justify-center bg-[#4f46e5] text-white px-4 py-2 rounded-lg"> <GrView /> View Details</Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

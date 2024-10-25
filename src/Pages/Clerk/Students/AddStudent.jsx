@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { ClerkDataContext } from "../ClerkData";
 import { DataContext } from "../../../Store/store";
 
-function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) {
+function AddStudent({ clerkAddStudent, addStudentHeading }) {
   const { handleUpdate } = useContext(ClerkDataContext);
   const {token} = useContext(DataContext)
 

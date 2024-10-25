@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
 
+
 function PendingFeesStudentsClerk() {
   const [studentPending, setStudentPending] = useState([]);
 
@@ -111,6 +112,9 @@ console.log(studentPending,"studentPending")
                     </td>
                     <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                       {items.pendingFee ? items.pendingFee : "N/A"}
+                    </td>
+                    <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                      <Link to={`/payment-details/${items?.student?._id}`} className="flex gap-3 items-center justify-center bg-[#4f46e5] text-white px-4 py-2 rounded-lg"> <GrView /> View Details</Link>
                     </td>
                   </tr>
                 ))}
