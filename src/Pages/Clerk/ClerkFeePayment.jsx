@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
+import { Link } from "react-router-dom";
+import { GrView } from "react-icons/gr";
+
 function ClerkFeePayment() {
+  // const navigate = useNavigate(); // React Router v6 hook for navigation
+
   const [amount, setAmount] = useState("");
   const [payDate, setPayDate] = useState("");
 //   const [payDateCurrent, setPayDateCurrent] = useState("");
@@ -152,7 +157,12 @@ function ClerkFeePayment() {
                     <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                       COURSE ENROLLED
                     </th>
-                    <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50" />
+                    <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50" >
+                      Fee Payment
+                    </th>
+                    <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50" >
+                      Payment Details
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -196,8 +206,13 @@ function ClerkFeePayment() {
                             >
                               Pay Now
                             </button>
+
                           </div>
+                          
                         </td>
+                        <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                          <Link to={`/payment-details/${list?._id}`} className="flex gap-3 items-center justify-center bg-[#4f46e5] text-white px-4 py-2 rounded-lg"> <GrView /> View Details</Link>
+                          </td>
                       </tr>
                     );
                   })}
@@ -255,15 +270,15 @@ function ClerkFeePayment() {
 
               <div className="bg-gray-100 p-4 rounded-lg shadow-inner w-full mb-4">
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Total Fees:</span> $
+                  <span className="font-semibold">Total Fees:</span> ₹
                   {stdFeeDetails?.student?.course_id?.totalFee}
                 </p>
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Fees Paid:</span> $
+                  <span className="font-semibold">Fees Paid:</span> ₹
                   {stdFeeDetails?.student?.fee}
                 </p>
                 <p className="text-md text-gray-700">
-                  <span className="font-semibold">Pending Fees:</span> $
+                  <span className="font-semibold">Pending Fees:</span> ₹
                   {stdFeeDetails?.totalPending}
                 </p>
                 <p className="text-md text-gray-700">

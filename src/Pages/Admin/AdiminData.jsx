@@ -97,7 +97,7 @@ export function AdminDataProvider({ children }) {
  const handleUpdate = (id) => {
    setBtn(true);
    setPopup(true);
-   const updateData = addStudent[id];
+   const updateData = addStudent.find(student => student._id === id);;
    console.log(updateData);
    setUpdateData(updateData);
  };

@@ -20,6 +20,8 @@ import StudentData from "./Pages/StudentPortal/StudentData";
 import ClerkData from "./Pages/Clerk/ClerkData";
 import PendingFeesStudentsClerk from "./Pages/Clerk/PendingFeesStudentsClerk";
 import ClerkFeePayment from "./Pages/Clerk/ClerkFeePayment";
+import PaymentDetails from "./Pages/Clerk/PaymentDetails";
+import PaymentDetail from "./Pages/Admin/PaymentDetails"
 
 
 
@@ -55,6 +57,7 @@ const {user} = useContext(DataContext)
         { path: "/courses", element: <Courses /> },
         { path: "/announcement", element: <Announcement /> },
         { path: "/pendingfee", element: <PendingFeesStudents /> },
+        { path:"/payment-details/:id", element:<PaymentDetail /> }
         // { path:"*", element:<NotFound /> }
       ],
     },
@@ -118,6 +121,7 @@ const {user} = useContext(DataContext)
         { path: "/fee-collection", element: <PendingFeesStudentsClerk/> },
         { path: "/students", element: <Student /> },
         { path: "/payfees", element: <ClerkFeePayment/> },
+        { path:"/payment-details/:id", element:<PaymentDetails /> }
       ],
     },
   ]);
