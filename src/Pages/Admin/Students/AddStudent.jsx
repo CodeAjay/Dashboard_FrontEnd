@@ -67,17 +67,17 @@ function AddStudent({ addStudent, addStudentHeading, setAddStudent }) {
   return (
     <>
       {/* Search Bar and Filters */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 w-[97.5%]">
         <input
           type="text"
           placeholder="Search by student name"
-          className="border px-4 py-2 w-full"
+          className="border px-4 py-2 w-full rounded-[5px]"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <select
-          className="border px-4 py-2"
+          className="border px-4 py-2 rounded-[5px]"
           value={selectedInstitute}
           onChange={(e) => setSelectedInstitute(e.target.value)}
         >
@@ -90,7 +90,7 @@ function AddStudent({ addStudent, addStudentHeading, setAddStudent }) {
         </select>
 
         <select
-          className="border px-4 py-2"
+          className="border px-4 py-2 rounded-[5px]"
           value={selectedCourse}
           onChange={(e) => setSelectedCourse(e.target.value)}
         >

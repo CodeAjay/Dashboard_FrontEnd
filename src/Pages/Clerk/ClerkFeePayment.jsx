@@ -23,7 +23,9 @@ function ClerkFeePayment() {
   //   const [max, setMax]=useState();
   const { token } = useContext(DataContext);
 
-
+	const [searchTerm, setSearchTerm] = useState("");
+const [filteredStudents, setFilteredStudents] = useState([]);	
+		
 
 
 
@@ -127,36 +129,6 @@ setPayMethod("")
   };
   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//   const enrollmentDate = stdFeeDetails?.student?.enrollment_date
-//     ? new Date(stdFeeDetails.student.enrollment_date)
-//     : null;
-//   const courseDuration = stdFeeDetails?.student?.course_id?.course_duration;
-//   let maxDate = null;
-
-//   if (enrollmentDate && courseDuration) {
-//     maxDate = new Date(enrollmentDate);
-//     maxDate.setMonth(maxDate.getMonth() + courseDuration);
-//   }
-
-//   // Check if dates are valid before formatting
-//   const minDate = enrollmentDate
-//     ? enrollmentDate.toISOString().split("T")[0]
-//     : "";
-//   const maxDateStr = maxDate ? maxDate.toISOString().split("T")[0] : "";
-
   const removePopup = () => {
     setPoppup(false);
   };
@@ -164,12 +136,50 @@ setPayMethod("")
     e.stopPropagation();
   };
 
+
+
+		  // Filtered students effect
+      useEffect(() => {
+        // Search by name
+    
+          const students = feePayment.filter((student) =>
+            student.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+       
+    
+    
+        setFilteredStudents(students);
+      }, [searchTerm,feePayment]);
+
+
+
+
+
+
+
+
   return (
     <>
       <div className="pl-[30px] container ">
         <div className="flex flex-col w-[97.5%] ">
           <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                   {/* <div className="flex gap-4 mb-4 w-[97.5%]"> */}
+        <input
+        className="rounded-[5px] mb-[20px]  border px-4 py-2 w-full"
+          type="text"
+          placeholder="Search by student name"
+          
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
             <div className="inline-block min-w-full overflow-hidden align-middle  shadow sm:rounded-lg border-b border-gray-200 ">
+              
+        
+              
+              
+              
+              
+              
               <table className=" min-w-full">
                 <thead>
                   <tr>
@@ -191,7 +201,7 @@ setPayMethod("")
                   </tr>
                 </thead>
                 <tbody className="bg-white">
-                  {feePayment.map((list, index) => {
+                  {filteredStudents.map((list, index) => {
                     return (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">

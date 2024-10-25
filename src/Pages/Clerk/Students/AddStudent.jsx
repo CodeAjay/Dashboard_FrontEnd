@@ -71,13 +71,13 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
         <input
           type="text"
           placeholder="Search by student name"
-          className="border px-4 py-2 w-full"
+          className="border px-4 py-2 w-full rounded-[5px]"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <select
-          className="border px-4 py-2"
+          className="border px-4 py-2 rounded-[5px]"
           value={selectedInstitute}
           onChange={(e) => setSelectedInstitute(e.target.value)}
         >
@@ -90,7 +90,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
         </select>
 
         <select
-          className="border px-4 py-2"
+          className="border px-4 py-2 rounded-[5px]"
           value={selectedCourse}
           onChange={(e) => setSelectedCourse(e.target.value)}
         >

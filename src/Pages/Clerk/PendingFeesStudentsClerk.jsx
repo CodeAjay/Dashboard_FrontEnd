@@ -45,7 +45,6 @@ const [filteredStudents, setFilteredStudents] = useState([]);
     pending();
   }, [penYear]);
 
-  // console.log(filteredStudents,"filteredStudents")
 
   // Filtered students effect
   useEffect(() => {
