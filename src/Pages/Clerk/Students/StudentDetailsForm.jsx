@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from "react"
 import  { ClerkDataContext } from "../ClerkData"
 import { DataContext } from "../../../Store/store"
+import { CiCamera } from "react-icons/ci";
 
 function StudentDetailsForm() {
 
@@ -132,7 +133,7 @@ const handleStudentUpdate = async () => {
   }
 };
 
-
+const [disable, setDisable ] =useState(false)
 
 
 const [userCloudProfile, setUserCloudProfile] = useState("");
@@ -147,7 +148,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
     data.append("cloud_name", "di3ca2pjm");
 
     setIsUploading(true); // Set uploading state to true
-
+    setDisable(true)
     fetch("https://api.cloudinary.com/v1_1/di3ca2pjm/image/upload", {
       method: "POST",
       body: data,
@@ -157,6 +158,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
       setUserCloudProfile(data.secure_url); // Store the image URL
       setUserProfile(data.secure_url); // Store the image URL
       setIsUploading(false); // Reset uploading state
+      setDisable(false); // Reset uploading state
     })
     .catch((error) => {
       console.error("Error uploading to Cloudinary:", error);
@@ -198,7 +200,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 {/* cloud  */}
 
 
-<div className="flex flex-col items-center">
+<div className="flex flex-col items-center relative">
       {isUploading ? (
         <div className="border-dashed border-2 border-gray-400 w-32 h-32 flex items-center justify-center mb-4">
           <span className="text-gray-500">Uploading...</span>
@@ -212,12 +214,19 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
         />
       ) : (
         userProfile?(
+          <>
+          
         <img 
           src={userProfile} 
           alt="Uploaded Profile" 
           className=" object-cover mb-4 cursor-pointer text-center max-w-[100px] max-h-[100px] rounded-full text-[14px]" 
           onClick={handleImageClick} 
-        />):
+        />
+      <div onClick={handleImageClick} className="absolute  cursor-pointer top-0 bottom-0 bg-black bg-opacity-70 w-full h-[85%] rounded-full flex justify-center items-center text-white text-2xl "><CiCamera /></div>
+
+        </>
+        
+        ):
         (
         <div 
           className="border-dashed border-2 text-center w-[100px] h-[100px] rounded-full text-[14px] border-gray-400  flex items-center justify-center mb-4 cursor-pointer" 
@@ -316,9 +325,11 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
   <div className="flex items-center justify-between">
         <button onClick={btn?handleStudentUpdate:handleStudentAdded}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="button"
+          className={ ` ${disable ? "bg-slate-500" :"bg-blue-500  hover:bg-blue-700"}    text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+          type="button" disabled={disable} 
         >
+
+
           {btn?"Update Student":"Add Student"}
           
         </button>

@@ -13,6 +13,7 @@ function ClerkFeePayment() {
   const [pendingMonth, setPendinMonth] = useState([]);
   const [payMethod, setPayMethod] = useState()
 
+  
   console.log(payDate, "payDate");
 
   const [popup, setPoppup] = useState(false);
@@ -21,6 +22,15 @@ function ClerkFeePayment() {
   const [loading, setloading] = useState(false);
   //   const [max, setMax]=useState();
   const { token } = useContext(DataContext);
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     const clerkStudentFees = async () => {
       const feeData = await fetch("http://localhost:3000/clerk/students", {
@@ -39,6 +49,9 @@ function ClerkFeePayment() {
   const StPayFees = (id) => {
     setPoppup(true);
     setloading(true);
+setAmount("")
+setPayMethod("")
+
     setStdFeeDetails("");
     const clerkStudentFeeDetails = async () => {
       const feeData = await fetch(
@@ -64,6 +77,18 @@ function ClerkFeePayment() {
 
 
   const feesPayment = async () => {
+
+    if (!amount &&  !payMethod ) {
+      return alert("All Fieids are required")
+      
+      
+      
+      
+      
+      }
+
+
+
     const payment_date = new Date().toISOString().slice(0, 10); // Format as YYYY-MM-DD
     const fessData = {
       student_id: stdFeeDetails?.student?._id,

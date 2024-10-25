@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { ClerkDataContext } from "../ClerkData";
 import { DataContext } from "../../../Store/store";
 
-function AddStudent({ clerkAddStudent, addStudentHeading }) {
+function AddStudent({ clerkAddStudent, addStudentHeading , setClerkAddStudent }) {
   const { handleUpdate } = useContext(ClerkDataContext);
   const {token} = useContext(DataContext)
 
@@ -53,7 +53,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading }) {
           },
         });
         const remainingStudents = clerkAddStudent.filter((item) => item._id !== id);
-        setAddStudent(remainingStudents);
+        setClerkAddStudent(remainingStudents);
       } catch (error) {
         console.error("Error deleting student:", error);
       }
@@ -67,7 +67,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading }) {
   return (
     <>
       {/* Search Bar and Filters */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 w-[97.5%]">
         <input
           type="text"
           placeholder="Search by student name"
