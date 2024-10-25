@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
+import { Link } from "react-router-dom";
+import { GrView } from "react-icons/gr";
 
 
 function PendingFeesStudentsClerk() {
@@ -69,7 +71,10 @@ console.log(studentPending,"studentPending")
                     COURSE ENROLLED
                   </th>
                   <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                    Fee Pending
+                    Fee Payment
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                    Payment Details
                   </th>
                 </tr>
               </thead>
