@@ -159,7 +159,7 @@ const [updateData, setUpdateData] = useState([]);
 const handleUpdate = (id) => {
   setBtn(true);
   setPopup(true);
-  const updateData = clerkAddStudent[id];
+  const updateData = clerkAddStudent.find(student => student._id === id);;
   console.log(updateData);
   setUpdateData(updateData);
 };
