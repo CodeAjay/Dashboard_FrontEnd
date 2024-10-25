@@ -17,6 +17,11 @@ const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
 const [instituteName, setInstituteName] = useState(updateData?updateData.institute_id._id:"")
 const [course, setCourse] = useState(updateData?updateData.course_id._id:"")  
+const [dob, setDob] = useState(updateData?updateData.DOB:"")  
+const [mobile, setMobile] = useState(updateData?updateData.mobile:"")  
+const [fName, setFName] = useState(updateData?updateData.fathersName:"")  
+const [fMob, setFMob] = useState(updateData?updateData.fmobile:"")  
+const [address, setAddress] = useState(updateData?updateData.address:"")  
 
 
 
@@ -33,6 +38,11 @@ const handleStudentAdded = async () => {
     institute_id: instituteName,
     email: userEmail,
     name: userName,
+    DOB : dob,
+    mobile:mobile,
+    fathersName:fName,
+    fmobile:fMob,
+    address:address,
   };
 
   try {
@@ -63,8 +73,11 @@ const handleStudentAdded = async () => {
       setInstituteName("");
       setCourse("");
       setPopup(false);
-    } else {
-      alert("Failed to add student. Please try again.");
+    
+    } else  if (response.status==400){
+      
+      
+      alert("Email Already Exists!");
     }
   } catch (error) {
     console.error("Error adding student:", error);
@@ -279,6 +292,126 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
           placeholder="Useremail"
         />
       </div>
+
+
+      
+
+
+{/* DOB  */}
+      <div className="mb-4 w-[100%]">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          D.O.B 
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="date"
+          onChange={(e)=> setDob(e.target.value)}
+          value={dob}
+          placeholder="D.O.B"
+        />
+      </div>
+
+  
+
+{/* Mobile  */}
+
+      <div className="mb-4 w-[100%]">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          Mobile 
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="phone"
+          onChange={(e)=> setMobile(e.target.value)}
+          value={mobile}
+          placeholder="Mobile"
+        />
+      </div>
+
+
+
+{/* Father Name  */}
+
+
+      <div className="mb-4 w-[100%]">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          Father's Name
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          onChange={(e)=> setFName(e.target.value)}
+          value={fName}
+          placeholder="Father's Name"
+        />
+      </div>
+
+
+{/* Father MOb  */}
+
+      <div className="mb-4 w-[100%]">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          Father's Mobile 
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          onChange={(e)=> setFMob(e.target.value)}
+          value={fMob}
+          placeholder="Father's Mobile"
+        />
+      </div>
+
+
+{/* Address  */}
+
+      <div className="mb-4 w-[100%]">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="username"
+        >
+          Address 
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          onChange={(e)=> setAddress(e.target.value)}
+          value={address}
+          placeholder="Address"
+        />
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div className="mb-4 w-[100%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"

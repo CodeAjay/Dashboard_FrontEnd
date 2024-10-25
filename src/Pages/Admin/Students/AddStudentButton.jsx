@@ -18,7 +18,7 @@ const {popup, handleOnclick ,removeOnclick } = useContext(AdminDataContext)
 
 {/* Popup content */}
 
-<div onClick={removeOnclick} className={popup? "absolute flex justify-center items-center bg-[#00000087] h-[100%] w-[100%] top-0 bottom-0 right-0 left-0": ""}>
+<div onClick={removeOnclick} className={popup? "absolute overflow-auto flex justify-center  items-center bg-[#00000087] max-h-[100vh] w-[100%] top-0 bottom-0 right-0 left-0": ""}>
 {popup?<StudentDetailsForm/>:""}
 
 
