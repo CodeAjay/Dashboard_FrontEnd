@@ -9,9 +9,6 @@ const {token}=useContext(DataContext)
   const {handleContentClick , clerkAddStudent, setClerkAddStudent, courses , setPopup ,updateData, btn, institutes} = useContext(ClerkDataContext)
 
 
-
-
-
 const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
 const [userName, setUserName] = useState(updateData?updateData.name:"")
 const [userEmail, setUserEmail] = useState(updateData?updateData.email:"")
@@ -21,7 +18,7 @@ const [dob, setDob] = useState(updateData?updateData.DOB:"")
 const [mobile, setMobile] = useState(updateData?updateData.mobile:"")  
 const [fName, setFName] = useState(updateData?updateData.fathersName:"")  
 const [fMob, setFMob] = useState(updateData?updateData.fmobile:"")  
-const [address, setAddress] = useState(updateData?updateData.address:"")  
+const [address, setAddress] = useState(updateData?updateData.address:"") 
 
 console.log(address,"address")
 
@@ -99,6 +96,11 @@ const handleStudentUpdate = async () => {
     institute_id: instituteName,
     email: userEmail,
     name: userName,
+    DOB : dob,
+    mobile:mobile,
+    fathersName:fName,
+    fmobile:fMob,
+    address:address,
   };
 
   console.log("update data inside update", updateData)
