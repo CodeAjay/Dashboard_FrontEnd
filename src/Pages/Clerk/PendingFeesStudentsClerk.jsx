@@ -7,10 +7,11 @@ import { GrView } from "react-icons/gr";
 function PendingFeesStudentsClerk() {
   const [studentPending, setStudentPending] = useState([]);
 
-console.log(studentPending,"studentPending")
 
   const {token}=useContext(DataContext);
-
+// States for search and filters
+const [searchTerm, setSearchTerm] = useState("");
+const [filteredStudents, setFilteredStudents] = useState([]);
   const currentYear = new Date().getFullYear();
   const currentMonth = String(new Date().getMonth() + 1).padStart(2, "0"); // Ensure two digits
 
@@ -34,6 +35,7 @@ console.log(studentPending,"studentPending")
       const resPending = await pendingFees.json();
       console.log(resPending, "resPending");
       setStudentPending(resPending || []); // Safeguard for no data
+      setFilteredStudents(resPending)
     } catch (error) {
       console.error("Error fetching pending fees:", error);
     }
@@ -43,15 +45,59 @@ console.log(studentPending,"studentPending")
     pending();
   }, [penYear]);
 
+  // console.log(filteredStudents,"filteredStudents")
+
+  // Filtered students effect
+  useEffect(() => {
+    // Search by name
+
+      const students = studentPending.filter((student) =>
+        student.student.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+   
+
+
+    setFilteredStudents(students);
+  }, [searchTerm,studentPending]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
+
+    <div className="flex gap-[12px]">
       <input
+      className="rounded-[5px] text-[14px] p-[10px]"
         type="month"
         value={penYear}
         onChange={(e) => setPenYear(e.target.value)}
         max={minDate}
         placeholder={penYear}
       />
+       {/* <div className="flex gap-4 mb-4 w-[97.5%]"> */}
+        <input
+        className="rounded-[5px]   border px-4 py-2 w-full"
+          type="text"
+          placeholder="Search by student name"
+          
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+</div>
+
       <div className="flex flex-col">
         <div className="py-2 overflow-x-auto">
           <div className="inline-block min-w-full overflow-hidden align-middle shadow sm:rounded-lg border-b border-gray-200 ">
@@ -79,7 +125,7 @@ console.log(studentPending,"studentPending")
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {studentPending.map((items, index) => (
+                {filteredStudents.map((items, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="flex items-center">
