@@ -67,7 +67,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
   return (
     <>
       {/* Search Bar and Filters */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 w-[97.5%]">
         <input
           type="text"
           placeholder="Search by student name"
