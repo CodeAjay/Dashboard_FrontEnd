@@ -9,7 +9,7 @@ const {token}=useContext(DataContext)
   const {handleContentClick , clerkAddStudent, setClerkAddStudent, courses , setPopup ,updateData, btn, institutes} = useContext(ClerkDataContext)
 
 
-console.log(courses,"courses", institutes, "institutes")
+
 
 
 const [userProfile, setUserProfile] = useState(updateData?updateData.imageUrl:"")
@@ -23,7 +23,7 @@ const [fName, setFName] = useState(updateData?updateData.fathersName:"")
 const [fMob, setFMob] = useState(updateData?updateData.fmobile:"")  
 const [address, setAddress] = useState(updateData?updateData.address:"")  
 
-
+console.log(address,"address")
 
 const handleStudentAdded = async () => {
   // Check if any field is empty
@@ -193,7 +193,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
   return (
     <div className="w-full max-w-[40%]" onClick={handleContentClick}>
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="flex gap-3">
+        <div className="flex  gap-3">
       {/* <div className="mb-4 w-[100%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
@@ -213,7 +213,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 {/* cloud  */}
 
 
-<div className="flex flex-col items-center relative">
+<div className="flex flex-col flex-wrap items-center relative">
       {isUploading ? (
         <div className="border-dashed border-2 border-gray-400 w-32 h-32 flex items-center justify-center mb-4">
           <span className="text-gray-500">Uploading...</span>
@@ -276,8 +276,8 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
         />
       </div>
       </div>
-      <div className="flex gap-3">
-      <div className="mb-4 w-[100%]">
+      <div className="flex flex-wrap gap-3">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -298,7 +298,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
 
 {/* DOB  */}
-      <div className="mb-4 w-[100%]">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -318,7 +318,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
 {/* Mobile  */}
 
-      <div className="mb-4 w-[100%]">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -339,7 +339,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 {/* Father Name  */}
 
 
-      <div className="mb-4 w-[100%]">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -358,7 +358,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
 {/* Father MOb  */}
 
-      <div className="mb-4 w-[100%]">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -377,7 +377,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
 {/* Address  */}
 
-      <div className="mb-4 w-[100%]">
+      <div className="mb-4 w-[48%]">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
@@ -434,7 +434,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
 
       </div>
       </div>
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="username"
