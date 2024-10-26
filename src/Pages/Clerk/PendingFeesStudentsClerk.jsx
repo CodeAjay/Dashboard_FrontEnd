@@ -124,7 +124,10 @@ const [filteredStudents, setFilteredStudents] = useState([]);
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {filteredStudents.map((items, index) => (
+    {filteredStudents.length>0?
+    
+    <>
+    {filteredStudents.map((items, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="flex items-center">
@@ -168,6 +171,18 @@ const [filteredStudents, setFilteredStudents] = useState([]);
                     </td>
                   </tr>
                 ))}
+                </>
+                :
+                <div className="text-center flex justify-center text-[18px] w-[100%]">Loading Data....</div>
+
+              
+              
+              }
+                
+               
+
+
+
               </tbody>
             </table>
           </div>

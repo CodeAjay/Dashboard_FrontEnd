@@ -42,7 +42,8 @@ const handleStudentAdded = async () => {
     mobile:mobile,
     fathersName:fName,
     fmobile:fMob,
-    address:address,
+    address:address,    
+    enrollment_date :new Date(),
   };
 
   try {
@@ -99,6 +100,11 @@ const handleStudentUpdate = async () => {
     institute_id: instituteName,
     email: userEmail,
     name: userName,
+    DOB : dob,
+    mobile:mobile,
+    fathersName:fName,
+    fmobile:fMob,
+    address:address,
   };
 
   console.log("update data inside update", updateData)

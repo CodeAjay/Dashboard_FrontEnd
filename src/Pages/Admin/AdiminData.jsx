@@ -165,14 +165,20 @@ export function AdminDataProvider({ children }) {
  // Dashboard StudentList
  const [studentsList, setStudentList] = useState([]);
  const studentList = async () => {
+  setLoading(true)
+
    const studentListData = await fetch("http://localhost:3000/students", {
      headers: {
        'Content-Type': 'application/json',
        'Authorization': `Bearer ${token}` // Include the token in the Authorization header
      },
    });
+
+
+
    const studentData = await studentListData.json();
    setStudentList(studentData);
+   setLoading(false)
  };
  useEffect(() => {
    studentList();
@@ -316,6 +322,9 @@ const [anbtn, setAnbtn] = useState(false);
 const [announce, setAnnounce] = useState([]);
 const [updateAnData, setupdateAnData] = useState(null);
 const [announcPopup, setAnnouncePopup] = useState(false);
+const [loading , setLoading] = useState(false)
+
+
 
 // Fetch announcements on component mount
 useEffect(() => {
@@ -443,6 +452,7 @@ const updateAnFun = async () => {
   return (
     <AdminDataContext.Provider
       value={{
+        loading , setLoading,
         cardDAta,
         to,
         setTo,
