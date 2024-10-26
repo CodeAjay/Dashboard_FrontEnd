@@ -22,7 +22,7 @@ import PendingFeesStudentsClerk from "./Pages/Clerk/PendingFeesStudentsClerk";
 import ClerkFeePayment from "./Pages/Clerk/ClerkFeePayment";
 import PaymentDetails from "./Pages/Clerk/PaymentDetails";
 import PaymentDetail from "./Pages/Admin/PaymentDetails"
-
+import Enquiry from "./Pages/Clerk/Enquiry"
 
 
 function App() {
@@ -121,7 +121,8 @@ const {user} = useContext(DataContext)
         { path: "/fee-collection", element: <PendingFeesStudentsClerk/> },
         { path: "/students", element: <Student /> },
         { path: "/payfees", element: <ClerkFeePayment/> },
-        { path:"/payment-details/:id", element:<PaymentDetails /> }
+        { path:"/payment-details/:id", element:<PaymentDetails /> },
+        { path:"/enquiry", element:<Enquiry/> }
       ],
     },
   ]);

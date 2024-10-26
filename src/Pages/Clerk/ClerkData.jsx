@@ -238,7 +238,7 @@ const addStudentHeading = [
   return (
    
         
-   <ClerkDataContext.Provider value={{clerkAddStudent,setClerkAddStudent,handleOnclick,
+   <ClerkDataContext.Provider value={{clerkAddStudent,setClerkAddStudent,handleOnclick,clerkAddStudentData,
     removeOnclick,
     loading, setLoading,
     popup,
