@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
 import { ClerkDataContext } from "../ClerkData";
 import { DataContext } from "../../../Store/store";
-
-function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) {
-  const { handleUpdate } = useContext(ClerkDataContext);
+import Loader from "../../../Components/Loader"
+function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent  }) {
+  const { handleUpdate , loading } = useContext(ClerkDataContext);
   const {token} = useContext(DataContext)
 
   // States for search and filters
@@ -12,15 +12,15 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
   const [filteredStudents, setFilteredStudents] = useState(clerkAddStudent);
   const [selectedInstitute, setSelectedInstitute] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
-
+  const [currentPage, setCurrentPage] = useState(1);
   // Filtered students effect
   useEffect(() => {
+    setCurrentPage(1)
     let students = [...clerkAddStudent];
-
     // Search by name
     if (searchTerm) {
       students = students.filter((student) =>
-        student.name.toLowerCase().includes(searchTerm.toLowerCase())
+        student.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
       );
     }
 
@@ -64,6 +64,21 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
   const institutes = [...new Set(clerkAddStudent.map((student) => student.institute_id.institute_name))];
   const courses = [...new Set(clerkAddStudent.map((student) => student.course_id.courseName))];
 
+
+  // Pagination logic 
+
+  const itemsPerPage = 10; 
+  // const [currentPage, setCurrentPage] = useState(1);
+  
+  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentStudents = filteredStudents.slice(startIndex, startIndex + itemsPerPage);
+  
+
+
+
+
+
   return (
     <>
       {/* Search Bar and Filters */}
@@ -103,6 +118,8 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
         </select>
       </div>
 
+{!loading? 
+<>
       {filteredStudents && filteredStudents.length > 0 ? (
         <div className="flex flex-col w-[97.5%] ">
           <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -123,7 +140,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
                   </tr>
                 </thead>
                 <tbody className="bg-white">
-                  {filteredStudents.map(
+                  {currentStudents.map(
                     ({ _id, imageUrl, course_id, institute_id, email, name }, index) => {
                       return (
                         <tr key={index}>
@@ -181,10 +198,47 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent }) 
               </table>
             </div>
           </div>
+
+          {totalPages > 1 && (
+
+<div className="flex justify-between items-center mt-4">
+<button
+  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+  disabled={currentPage === 1}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Previous
+</button>
+<span>Page {currentPage} of {totalPages}</span>
+<button
+  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+  disabled={currentPage === totalPages}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Next
+</button>
+</div>
+)}
+
         </div>
       ) : (
-        <div>No students found</div>
+        <div></div>
       )}
+      </>
+      : 
+    <>
+    
+    <Loader/>
+    
+    </>
+
+    }
+
+
+
+
+
+
     </>
   );
 }

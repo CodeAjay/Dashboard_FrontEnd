@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
 import { Link } from "react-router-dom";
 import { GrView } from "react-icons/gr";
+import { ClerkDataContext } from "./ClerkData";
+import Loader from "../../Components/Loader";
 
 
 function PendingFeesStudentsClerk() {
   const [studentPending, setStudentPending] = useState([]);
 
-
+const {loading , setLoading } = useContext(ClerkDataContext)
   const {token}=useContext(DataContext);
 // States for search and filters
 const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +26,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
   // Fetch pending fees data
   const pending = async () => {
     try {
+      setLoading(true)
       const pendingFees = await fetch(
         `http://localhost:3000/clerk/fee-collection/payment-status/${penYear}`,{
           headers: {
@@ -36,6 +39,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
       console.log(resPending, "resPending");
       setStudentPending(resPending || []); // Safeguard for no data
       setFilteredStudents(resPending)
+      setLoading(false)
     } catch (error) {
       console.error("Error fetching pending fees:", error);
     }
@@ -47,11 +51,15 @@ const [filteredStudents, setFilteredStudents] = useState([]);
 
 
   // Filtered students effect
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+
   useEffect(() => {
     // Search by name
-
+    setCurrentPage(1);
       const students = studentPending.filter((student) =>
-        student.student.name.toLowerCase().includes(searchTerm.toLowerCase())
+        student.student.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
       );
    
 
@@ -62,7 +70,15 @@ const [filteredStudents, setFilteredStudents] = useState([]);
 
 
 
+  // Pagination logic 
 
+  const itemsPerPage = 10; 
+
+  
+  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentStudents = filteredStudents.slice(startIndex, startIndex + itemsPerPage);
+  
 
 
 
@@ -96,7 +112,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 </div>
-
+  {!loading? 
       <div className="flex flex-col">
         <div className="py-2 overflow-x-auto">
           <div className="inline-block min-w-full overflow-hidden align-middle shadow sm:rounded-lg border-b border-gray-200 ">
@@ -127,7 +143,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
     {filteredStudents.length>0?
     
     <>
-    {filteredStudents.map((items, index) => (
+    {currentStudents.map((items, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <div className="flex items-center">
@@ -173,7 +189,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
                 ))}
                 </>
                 :
-                <div className="text-center flex justify-center text-[18px] w-[100%]">Loading Data....</div>
+                <div className="text-center flex justify-center text-[18px] w-[100%]">No data found</div>
 
               
               
@@ -187,7 +203,39 @@ const [filteredStudents, setFilteredStudents] = useState([]);
             </table>
           </div>
         </div>
+
+        {totalPages > 1 && (
+
+<div className="flex justify-between items-center mt-4">
+<button
+  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+  disabled={currentPage === 1}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Previous
+</button>
+<span>Page {currentPage} of {totalPages}</span>
+<button
+  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+  disabled={currentPage === totalPages}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Next
+</button>
+</div>
+)}
+
+
       </div>
+:
+<>
+
+<Loader/>
+
+</>
+}
+
+
     </>
   );
 }

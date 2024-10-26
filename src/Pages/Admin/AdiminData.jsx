@@ -9,7 +9,8 @@ export function AdminDataProvider({ children }) {
 
 
 
-
+  const [anTitle, setAnTitle] = useState("");
+  const [anDes, setAnDes] = useState("");
     const [courses, setCourses] = useState([]);
   const { token } = useContext(DataContext);
   const [addStudent, setAddStudent] = useState([]);
@@ -30,6 +31,7 @@ export function AdminDataProvider({ children }) {
 
   const feee = async () => {
     try {
+      
       const feeColl = await fetch("http://localhost:3000/fee-collection/fees", {
         method: "POST",
         headers: {
@@ -84,6 +86,8 @@ export function AdminDataProvider({ children }) {
 
  const handleOnclick = () => {
    setUpdateData("");
+   setAnDes("")
+   setAnTitle("")
    setBtn(false);
    setPopup(true);
  };
@@ -316,8 +320,7 @@ console.log(id)
  
  // Announcement page
 
-const [anTitle, setAnTitle] = useState("");
-const [anDes, setAnDes] = useState("");
+
 const [anbtn, setAnbtn] = useState(false);
 const [announce, setAnnounce] = useState([]);
 const [updateAnData, setupdateAnData] = useState(null);
@@ -330,6 +333,7 @@ const [loading , setLoading] = useState(false)
 useEffect(() => {
  const fetchAnnouncements = async () => {
    try {
+    setLoading(true)
      const response = await fetch("http://localhost:3000/announcements", {
        headers: {
          'Content-Type': 'application/json', // Set content type
@@ -338,6 +342,7 @@ useEffect(() => {
      });
      const data = await response.json();
      setAnnounce(data);
+     setLoading(false)
      // console.log(data);
    } catch (error) {
      console.error("Error fetching announcements:", error);
@@ -350,6 +355,8 @@ useEffect(() => {
 // Open popup for new announcement
 const handleAnnouncementPopup = () => {
  setAnnouncePopup(true);
+ setAnDes("");
+ setAnTitle("");  
 };
 
 // Close popup and reset fields

@@ -26,6 +26,7 @@ const [courseName, setCourseName] = useState("");
 const [courseInstitute, setCourseInstitute] = useState({});
 const [coursePopup, setCoursePopup] = useState(false);
 const [updateCourseData, setUpdateCourseData] = useState(null);
+const [loading, setLoading] = useState(false);
 
 // Fetch courses on component mount
 useEffect(() => {
@@ -190,6 +191,7 @@ const addStudentHeading = [
 
     // AddStudent  clerk API Data
     const clerkAddStudentData = async () => {
+      setLoading(true)
      const listedStudent = await fetch("http://localhost:3000/clerk/students", {
        headers: {
          'Content-Type': 'application/json', // Set content type
@@ -198,7 +200,7 @@ const addStudentHeading = [
      });
      const data = await listedStudent.json();
      setClerkAddStudent(data);
- 
+     setLoading(false)
      console.log(data, "addStudent")
    };
    useEffect(() => {
@@ -239,6 +241,7 @@ const addStudentHeading = [
         
    <ClerkDataContext.Provider value={{clerkAddStudent,setClerkAddStudent,handleOnclick,
     removeOnclick,
+    loading, setLoading,
     popup,
     handleContentClick,
     addStudentHeading,

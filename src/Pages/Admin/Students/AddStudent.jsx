@@ -13,9 +13,10 @@ function AddStudent({ addStudent, addStudentHeading, setAddStudent }) {
   const [filteredStudents, setFilteredStudents] = useState(addStudent);
   const [selectedInstitute, setSelectedInstitute] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
-
+  const [currentPage, setCurrentPage] = useState(1);
   // Filtered students effect
   useEffect(() => {
+    setCurrentPage(1)
     let students = [...addStudent];
     // Search by name
     if (searchTerm) {
@@ -68,7 +69,7 @@ function AddStudent({ addStudent, addStudentHeading, setAddStudent }) {
 // Pagination logic 
 
 const itemsPerPage = 10; 
-const [currentPage, setCurrentPage] = useState(1);
+// const [currentPage, setCurrentPage] = useState(1);
 
 const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
 const startIndex = (currentPage - 1) * itemsPerPage;
