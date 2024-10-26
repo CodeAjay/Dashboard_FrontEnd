@@ -3,9 +3,9 @@ import { FaRegEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { AdminDataContext } from "../AdiminData";
 import { DataContext } from "../../../Store/store";
-
+import Loader from "../../../Components/Loader";
 function AnnouncementList() {
-  const { announce ,setAnnounce, handleAnnEdit} = useContext(AdminDataContext);
+  const { announce ,setAnnounce, handleAnnEdit , loading} = useContext(AdminDataContext);
 const {token} = useContext(DataContext)
 
   const [eyePop, setEyePop] = useState(false);
@@ -52,7 +52,14 @@ console.log("edit announcement content", Ant)
   };
   
  
+//  Pagination logic 
 
+  const itemsPerPage = 10; 
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const totalPages = Math.ceil(announce.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentStudents = announce.slice(startIndex, startIndex + itemsPerPage);
 
 
 
@@ -60,7 +67,9 @@ console.log("edit announcement content", Ant)
 
   return (
     <>
-      <div className="flex flex-col w-[97.5%] ">
+{!loading?
+
+  <div className="flex flex-col w-[97.5%] ">
         <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="inline-block min-w-full overflow-hidden align-middle  shadow sm:rounded-lg border-b border-gray-200 ">
             <table className=" min-w-full">
@@ -79,7 +88,7 @@ console.log("edit announcement content", Ant)
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {announce.map((announce, index) => {
+                {currentStudents.map((announce, index) => {
                   return (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -139,7 +148,40 @@ console.log("edit announcement content", Ant)
             </table>
           </div>
         </div>
+
+        {totalPages > 1 && (
+
+<div className="flex justify-between items-center mt-4">
+<button
+  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+  disabled={currentPage === 1}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Previous
+</button>
+<span>Page {currentPage} of {totalPages}</span>
+<button
+  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+  disabled={currentPage === totalPages}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Next
+</button>
+</div>
+)}
+
+
+
+
       </div>
+:
+<>
+<Loader />
+</>
+
+
+}
+     
 
       <div
         onClick={removeEye}

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Store/store";
 import { Link } from "react-router-dom";
 import { GrView } from "react-icons/gr";
+import Loader from "../../Components/Loader";
 
 function ClerkFeePayment() {
   // const navigate = useNavigate(); // React Router v6 hook for navigation
@@ -20,6 +21,7 @@ function ClerkFeePayment() {
   const [feePayment, setFeePAyment] = useState([]);
   const [stdFeeDetails, setStdFeeDetails] = useState({});
   const [loading, setloading] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   //   const [max, setMax]=useState();
   const { token } = useContext(DataContext);
 
@@ -35,6 +37,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
 
   useEffect(() => {
     const clerkStudentFees = async () => {
+      setSpinner(true)
       const feeData = await fetch("http://localhost:3000/clerk/students", {
         headers: {
           "Content-Type": "application/json",
@@ -43,6 +46,7 @@ const [filteredStudents, setFilteredStudents] = useState([]);
       });
       const finalFeeData = await feeData.json();
       setFeePAyment(finalFeeData);
+      setSpinner(false)
     };
 
     clerkStudentFees();
@@ -137,13 +141,13 @@ setPayMethod("")
   };
 
 
-
+  const [currentPage, setCurrentPage] = useState(1);
 		  // Filtered students effect
       useEffect(() => {
         // Search by name
-    
+         setCurrentPage(1);
           const students = feePayment.filter((student) =>
-            student.name.toLowerCase().includes(searchTerm.toLowerCase())
+            student.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
           );
        
     
@@ -153,7 +157,15 @@ setPayMethod("")
 
 
 
+      // Pagination logic 
 
+      const itemsPerPage = 10; 
+     
+      
+      const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const currentStudents = filteredStudents.slice(startIndex, startIndex + itemsPerPage);
+      
 
 
 
@@ -172,15 +184,12 @@ setPayMethod("")
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+
+
+{!spinner?
+<>
             <div className="inline-block min-w-full overflow-hidden align-middle  shadow sm:rounded-lg border-b border-gray-200 ">
-              
-        
-              
-              
-              
-              
-              
-              <table className=" min-w-full">
+                 <table className=" min-w-full">
                 <thead>
                   <tr>
                     <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
@@ -201,7 +210,7 @@ setPayMethod("")
                   </tr>
                 </thead>
                 <tbody className="bg-white">
-                  {filteredStudents.map((list, index) => {
+                  {currentStudents.map((list, index) => {
                     return (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -254,7 +263,41 @@ setPayMethod("")
                 </tbody>
               </table>
             </div>
-          </div>
+          
+          {totalPages > 1 && (
+
+<div className="flex justify-between items-center mt-4">
+<button
+  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+  disabled={currentPage === 1}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Previous
+</button>
+<span>Page {currentPage} of {totalPages}</span>
+<button
+  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+  disabled={currentPage === totalPages}
+  className="border px-4 py-2 rounded-lg bg-[#4f46e5] text-white disabled:opacity-50"
+>
+  Next
+</button>
+</div>
+)}
+</>
+:
+<>
+
+<Loader/>
+</>
+}
+
+
+
+
+
+
+</div>
         </div>
       </div>
 

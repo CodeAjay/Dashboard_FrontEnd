@@ -39,7 +39,8 @@ const handleStudentAdded = async () => {
     mobile:mobile,
     fathersName:fName,
     fmobile:fMob,
-    address:address,
+    address:address,    
+    enrollment_date :new Date(),
   };
 
   try {
