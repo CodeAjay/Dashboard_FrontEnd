@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaInfo } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { CiFolderOn } from "react-icons/ci";
 import { CiCalendar } from "react-icons/ci";
@@ -85,6 +85,11 @@ function Sidebar({ setisExpended, isExpended }) {
                 name: "Fee Payment",
                 icon: <FaGooglePay />,
                 path: "/payfees",
+            },
+            {
+                name: "Enquiry",
+                icon: <FaInfo />,
+                path: "/enquiry",
             },
         ]:[]; 
 
