@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FaHome, FaInfo } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { CiFolderOn } from "react-icons/ci";
+import { CiDollar, CiFolderOn } from "react-icons/ci";
 import { CiCalendar } from "react-icons/ci";
 import { IoDocuments } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
@@ -39,6 +39,11 @@ function Sidebar({ setisExpended, isExpended }) {
                 name: "Pending Fee",
                 icon: <IoDocuments />,
                 path: "/pendingfee",
+            },
+            {
+                name: "Fee Approval",
+                icon: <CiDollar />,
+                path: "/fee-approval",
             },
         ]
         : user.role === "student"

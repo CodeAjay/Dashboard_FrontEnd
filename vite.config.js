@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     // This option tells the server to fallback to index.html for SPA routing
-    historyApiFallback: true
+    historyApiFallback: true,
   }
 })

@@ -23,6 +23,7 @@ import ClerkFeePayment from "./Pages/Clerk/ClerkFeePayment";
 import PaymentDetails from "./Pages/Clerk/PaymentDetails";
 import PaymentDetail from "./Pages/Admin/PaymentDetails"
 import Enquiry from "./Pages/Clerk/Enquiry"
+import FeeApproval from "./Pages/Admin/FeeApproval/FeeApproval";
 
 
 function App() {
@@ -57,7 +58,8 @@ const {user} = useContext(DataContext)
         { path: "/courses", element: <Courses /> },
         { path: "/announcement", element: <Announcement /> },
         { path: "/pendingfee", element: <PendingFeesStudents /> },
-        { path:"/payment-details/:id", element:<PaymentDetail /> }
+        { path:"/payment-details/:id", element:<PaymentDetail /> },
+        { path:"/fee-approval", element:<FeeApproval /> }
         // { path:"*", element:<NotFound /> }
       ],
     },
