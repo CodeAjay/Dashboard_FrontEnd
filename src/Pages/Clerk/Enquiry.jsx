@@ -23,7 +23,7 @@ function Enquiry() {
   const [isUploading, setIsUploading] = useState(false); // State for upload status
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
+
     const enguiryStd = async () => {
       try {
         // Send POST request to the backend API
@@ -55,8 +55,15 @@ function Enquiry() {
         alert("An error occurred. Please try again.");
       }
     };
+   
+    useEffect(() => { 
+   
     enguiryStd();
   }, []);
+
+
+
+
 
   console.log(clerkAddStudent, "clerkAddStudent");
 
@@ -178,6 +185,7 @@ function Enquiry() {
 
         alert(savedStudent.message);
         await clerkAddStudentData();
+        await enguiryStd();
       }
     } catch (error) {
       console.error("Error adding student:", error);
