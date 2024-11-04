@@ -4,8 +4,6 @@ import { DataContext } from "../../Store/store";
 function Dashboard() {
 
 const [course , setCourses] = useState([])
-
-
 const {token} = useContext(DataContext)
   useEffect(() => {
     const showCourses = async () => {
@@ -25,30 +23,49 @@ const {token} = useContext(DataContext)
     showCourses();
   }, [ token]);
 
-console.log(course)
 
   return (
-<div class="max-w-sm mx-auto bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform ">
-  <div class="relative">
-    <img class="w-full h-48 object-cover" src={course[0]?.imageUrl} alt={course[0]?.courseName} />
-    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-    <h2 class="absolute bottom-4 left-4 text-white text-2xl font-bold">{course[0]?.courseName}</h2>
+    <>
+<div className="w-[100%]  pl-[100px] mx-auto  overflow-hidden transition-transform transform flex justify-start items-center flex-wrap gap-8">
+  
+{course.map((items,index)=>{
+
+return (
+
+  <div key={index} className="col-3 bg-white rounded-lg shadow-lg" >
+  <div className="relative">
+    <img className="w-full h-48 object-cover rounded-tl-[12px] rounded-tr-[7px]" src={items?.imageUrl} alt={items?.courseName} />
+    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+    <h2 className="absolute bottom-4 left-4 text-white text-2xl font-bold">{items?.courseName}</h2>
   </div>
   
-  <div class="p-6">
-    <p class="text-gray-700 mt-2">
-      <span class="font-semibold">Duration:</span> {course[0]?.course_duration} Months
+  <div className="p-6">
+    <p className="text-gray-700 mt-2">
+      <span className="font-semibold">Duration:</span> {items?.course_duration} Months
     </p>
-    <p class="text-gray-700 mt-1">
-      <span class="font-semibold">Enrolled Students:</span> {course[0]?.studentsEnrolled}
+    <p className="text-gray-700 mt-1">
+      <span className="font-semibold">Enrolled Students:</span> {items?.studentsEnrolled}
     </p>
-    <p class="text-gray-700 mt-1">
-      <span class="font-semibold">Total Fee:</span> ₹{course[0]?.totalFee}
+    <p className="text-gray-700 mt-1">
+      <span className="font-semibold">Total Fee:</span> ₹{items?.totalFee}
     </p>
   </div>
+  </div>
+
+
+)
+
+
+
+})}
+
+ 
+
+
+
 </div>
 
-
+</>
 
   )
 }
