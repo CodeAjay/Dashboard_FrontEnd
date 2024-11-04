@@ -4,7 +4,7 @@ import { DataContext } from "../../../Store/store";
 import { CiCamera } from "react-icons/ci";
 
 function CourseForm() {
-const {contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(AdminDataContext)    
+const {courseFee, setCourseFee, courseDuration , setCourseDuration, contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(AdminDataContext)    
 const {token} = useContext(DataContext)
 const addCourse = async () => {
   // Prepare the data for the new course
@@ -12,6 +12,8 @@ const addCourse = async () => {
     courseName: courseName,
     imageUrl: courseImage,
     institute_id: courseInstitute, // Ensure this is correctly set from your select input
+    course_duration:courseDuration,
+    totalFee : courseFee,
     studentsEnrolled: 0, // Set initial value
     totalFee: 0 // Set initial value
   };
@@ -35,6 +37,7 @@ const addCourse = async () => {
 
       // Clear input fields and close the popup
       setCourseImage("");
+      setCourseDuration("");
       setCourseName("");
       setCourseInstitute(""); 
       setCoursePopup(false);
@@ -130,6 +133,48 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
         placeholder="CourseName"
       />
     </div>
+
+
+    <div className="mb-4">
+      <label
+        className="block text-gray-700 text-sm font-bold mb-2"
+        htmlFor="username"
+      >
+        CourseDuration
+      </label>
+      <input
+      value={courseDuration}
+      onChange={(e)=>setCourseDuration(e.target.value)}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username"
+        type="number"
+        placeholder="CourseName"
+      />
+    </div>
+
+    <div className="mb-4">
+      <label
+        className="block text-gray-700 text-sm font-bold mb-2"
+        htmlFor="username"
+      >
+        TotalFee
+      </label>
+      <input
+      value={courseFee}
+      onChange={(e)=>setCourseFee(e.target.value)}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username"
+        type="number"
+        placeholder="CourseName"
+      />
+    </div>
+
+
+
+
+
+
+
   
       <label
         className="block text-gray-700 text-sm font-bold mb-2"
