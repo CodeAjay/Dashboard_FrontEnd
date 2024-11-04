@@ -195,6 +195,8 @@ export function AdminDataProvider({ children }) {
  const [Button, setButton] = useState(false);
  const [courseImage, setCourseImage] = useState("");
  const [courseName, setCourseName] = useState("");
+ const [courseDuration, setCourseDuration] = useState("");
+ const [courseFee, setCourseFee] = useState("");
  const [courseInstitute, setCourseInstitute] = useState({});
  const [coursePopup, setCoursePopup] = useState(false);
  const [updateCourseData, setUpdateCourseData] = useState(null);
@@ -269,6 +271,8 @@ console.log(id)
    const courseToEdit = courses[index];
    
    setCourseImage(courseToEdit.imageUrl || ""); // Set course image
+   setCourseFee(courseToEdit.totalFee || ""); // Set course image
+   setCourseDuration(courseToEdit.course_duration || ""); // Set course image
    setCourseName(courseToEdit.courseName); // Set course name
    setCourseInstitute(courseToEdit.institute_id._id); 
    setUpdateCourseData(courseToEdit);
@@ -296,7 +300,9 @@ console.log(id)
        body: JSON.stringify({
          courseName: courseName,
          imageUrl:courseImage,
-         institute_id: courseInstitute
+         institute_id: courseInstitute,
+         course_duration:courseDuration,
+         totalFee : courseFee,
          // studentsEnrolled: studentsEnrolled,
          // totalFee: fee,
        }),
@@ -468,8 +474,10 @@ const updateAnFun = async () => {
         minDate,
         addStudent,
         setAddStudent,
-        
-        
+        courseDuration,
+        setCourseDuration,
+        setCourseFee,
+        courseFee,
         
         // to, setTo,
         // from, setFrom,minDate,
