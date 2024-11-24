@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../Store/store';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
   const { user, login } = useContext(DataContext);
@@ -24,12 +26,15 @@ const LoginPage = () => {
     e.preventDefault();
     const success = await login({ username, password }); // Call login function from context
     if (success) {
+      toast.success("You are logged in ");
         if(user.role==="admin"){
             navigate('/dashboard'); // Redirect to dashboard after login
         }else{
             navigate('/'); 
         }
     } else {
+      toast.error("Invalid credentials!");
+
       // Handle login failure (optional: show an error message)
     }
   };
@@ -81,6 +86,7 @@ const LoginPage = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
