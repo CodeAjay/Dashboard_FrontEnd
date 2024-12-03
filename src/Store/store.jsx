@@ -22,7 +22,7 @@ function Store({ children }) {
 
   const login = async (credentials) => {
     try {
-      const response = await fetch('http://localhost:3000/login/login', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/login/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Set content type

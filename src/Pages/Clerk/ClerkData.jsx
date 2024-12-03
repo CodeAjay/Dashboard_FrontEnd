@@ -32,7 +32,7 @@ const [loading, setLoading] = useState(false);
 useEffect(() => {
   const showCourses = async () => {
     try {
-      const response = await fetch("http://localhost:3000/clerk/courses", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/courses`, {
         headers: {
           'Content-Type': 'application/json', // Set content type
           'Authorization': `Bearer ${token}` // Include the token in the Authorization header
@@ -77,7 +77,7 @@ console.log("delete",courses)
 console.log(id)
   if (deleted) {
     try {
-      await fetch(`http://localhost:3000/clerk/courses/${id}`, {
+      await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/courses/${id}`, {
        method: "DELETE",
        headers: {
            'Content-Type': 'application/json', // Set content type
@@ -116,7 +116,7 @@ const handleCourseUpdate = async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/clerk/courses/${updateCourseData._id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/courses/${updateCourseData._id}`, {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json', // Set content type
@@ -191,7 +191,7 @@ const addStudentHeading = [
     // AddStudent  clerk API Data
     const clerkAddStudentData = async () => {
       setLoading(true)
-     const listedStudent = await fetch("http://localhost:3000/clerk/students", {
+     const listedStudent = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/students`, {
        headers: {
          'Content-Type': 'application/json', // Set content type
          'Authorization': `Bearer ${token}` // Include the token in the Authorization header
@@ -211,7 +211,7 @@ const addStudentHeading = [
 
  const fetchInstitutes = async () => {
    try {
-     const result = await fetch("http://localhost:3000/clerk/institutes", {
+     const result = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/institutes`, {
        headers: {
          'Content-Type': 'application/json', // Set content type
          'Authorization': `Bearer ${token}` // Include the token in the Authorization header

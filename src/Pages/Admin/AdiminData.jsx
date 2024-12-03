@@ -28,7 +28,7 @@ export function AdminDataProvider({ children }) {
 
   const feee = async () => {
     try {
-      const feeColl = await fetch("http://localhost:3000/fee-collection/fees", {
+      const feeColl = await fetch(`${import.meta.env.VITE_BASE_URL}/fee-collection/fees`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Set content type
@@ -123,7 +123,7 @@ export function AdminDataProvider({ children }) {
 
   // Add Student API Data
   const addStudentData = async () => {
-    const listedStudent = await fetch("http://localhost:3000/students", {
+    const listedStudent = await fetch(`${import.meta.env.VITE_BASE_URL}/students`, {
       headers: {
         "Content-Type": "application/json", // Set content type
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -158,7 +158,7 @@ export function AdminDataProvider({ children }) {
   const studentList = async () => {
     setLoading(true);
 
-    const studentListData = await fetch("http://localhost:3000/students", {
+    const studentListData = await fetch(`${import.meta.env.VITE_BASE_URL}/students`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -188,7 +188,7 @@ export function AdminDataProvider({ children }) {
   useEffect(() => {
     const showCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/courses", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/courses`, {
           headers: {
             "Content-Type": "application/json", // Set content type
             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -230,7 +230,7 @@ export function AdminDataProvider({ children }) {
     console.log(id);
     if (deleted) {
       try {
-        await fetch(`http://localhost:3000/courses/${id}`, {
+        await fetch(`${import.meta.env.VITE_BASE_URL}/courses/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json", // Set content type
@@ -270,7 +270,7 @@ export function AdminDataProvider({ children }) {
     }
     try {
       const response = await fetch(
-        `http://localhost:3000/courses/${updateCourseData._id}`,
+        `${import.meta.env.VITE_BASE_URL}/courses/${updateCourseData._id}`,
         {
           method: "PUT",
           headers: {
@@ -319,7 +319,7 @@ export function AdminDataProvider({ children }) {
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:3000/announcements", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/announcements`, {
           headers: {
             "Content-Type": "application/json", // Set content type
             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -373,7 +373,7 @@ export function AdminDataProvider({ children }) {
     try {
       // Send updated announcement to the backend
       const response = await fetch(
-        `http://localhost:3000/announcements/${updateAnData._id}`,
+        `${import.meta.env.VITE_BASE_URL}/announcements/${updateAnData._id}`,
         {
           method: "PUT",
           headers: {
@@ -413,7 +413,7 @@ export function AdminDataProvider({ children }) {
 
   const fetchInstitutes = async () => {
     try {
-      const result = await fetch("http://localhost:3000/institutes", {
+      const result = await fetch(`${import.meta.env.VITE_BASE_URL}/institutes`, {
         headers: {
           "Content-Type": "application/json", // Set content type
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header

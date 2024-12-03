@@ -46,7 +46,7 @@ function AddStudent({ addStudent, addStudentHeading, setAddStudent }) {
   const handleDeleteBtn = async (id) => {
     if (confirm("Are you sure you want to delete this student?")) {
       try {
-        await fetch(`http://localhost:3000/students/${id}`, {
+        await fetch(`${import.meta.env.VITE_BASE_URL}/students/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

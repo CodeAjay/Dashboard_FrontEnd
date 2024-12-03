@@ -7,7 +7,7 @@ function StPastPayments() {
   useEffect(() => {
 
     const payments = async () => {
-      const pastPayments = await fetch(`http://localhost:3000/api/student/${studentId}/past-payments`,{
+      const pastPayments = await fetch(`${import.meta.env.VITE_BASE_URL}/api/student/${studentId}/past-payments`,{
         headers: {
           'Content-Type': 'application/json', // Set content type
           'Authorization': `Bearer ${token}` // Include the token in the Authorization header

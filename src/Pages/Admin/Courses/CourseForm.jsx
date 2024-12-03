@@ -18,7 +18,7 @@ const addCourse = async () => {
     admission_fee : admissionfee
   };
   try {
-    const response = await fetch("http://localhost:3000/courses", {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/courses`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json', // Set content type

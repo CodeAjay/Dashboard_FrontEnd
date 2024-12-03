@@ -26,7 +26,7 @@ function PendingFeesStudents() {
   const pending = async () => {
     try {
       const pendingFees = await fetch(
-        `http://localhost:3000/fee-collection/payment-status/${penYear}`,
+        `${import.meta.env.VITE_BASE_URL}/fee-collection/payment-status/${penYear}`,
         {
           headers: {
             "Content-Type": "application/json",

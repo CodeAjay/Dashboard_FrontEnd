@@ -45,7 +45,7 @@ function AddStudent({ clerkAddStudent, addStudentHeading, setClerkAddStudent  })
     const deleted = confirm("Are you sure you want to delete this student?");
     if (deleted) {
       try {
-        await fetch(`http://localhost:3000/clerk/students/${id}`, {
+        await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/students/${id}`, {
           method: "DELETE",
           headers: {
             'Content-Type': 'application/json', // Set content type

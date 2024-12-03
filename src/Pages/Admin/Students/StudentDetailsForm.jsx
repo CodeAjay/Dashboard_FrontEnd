@@ -47,7 +47,7 @@ const handleStudentAdded = async () => {
 
   try {
     // Send POST request to the backend API
-    const response = await fetch('http://localhost:3000/students', {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/students`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // Set content type
@@ -116,7 +116,7 @@ const handleStudentUpdate = async () => {
 
   try {
     // Send PUT or PATCH request to the backend API
-    const response = await fetch(`http://localhost:3000/students/${updateData._id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/students/${updateData._id}`, {
       method: 'PUT', // Or 'PATCH' if your API uses that for updates
       headers: {
         'Content-Type': 'application/json', // Set content type

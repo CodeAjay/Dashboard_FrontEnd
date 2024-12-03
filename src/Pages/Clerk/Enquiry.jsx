@@ -27,7 +27,7 @@ function Enquiry() {
     const enguiryStd = async () => {
       try {
         // Send POST request to the backend API
-        const response = await fetch("http://localhost:3000/clerk/enquiry", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/enquiry`, {
           headers: {
             "Content-Type": "application/json", // Set content type
             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -127,7 +127,7 @@ function Enquiry() {
 
     try {
       // Send POST request to the backend API
-      const response = await fetch("http://localhost:3000/clerk/enquiry", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/enquiry`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Set content type
@@ -166,7 +166,7 @@ function Enquiry() {
     try {
       // Send POST request to the backend API
       const response = await fetch(
-        `http://localhost:3000/clerk/enquiry/convert/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/clerk/enquiry/convert/${id}`,
         {
           method: "POST",
           headers: {
