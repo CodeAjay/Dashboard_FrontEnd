@@ -182,6 +182,7 @@ export function AdminDataProvider({ children }) {
   const [courseInstitute, setCourseInstitute] = useState({});
   const [coursePopup, setCoursePopup] = useState(false);
   const [updateCourseData, setUpdateCourseData] = useState(null);
+  const [admissionfee, setAdmissionfee] = useState("");
 
   // Fetch courses on component mount
   useEffect(() => {
@@ -250,6 +251,7 @@ export function AdminDataProvider({ children }) {
 
     setCourseImage(courseToEdit.imageUrl || ""); // Set course image
     setCourseFee(courseToEdit.totalFee || ""); // Set course image
+    setAdmissionfee(courseToEdit.admissionfee)
     setCourseDuration(courseToEdit.course_duration || ""); // Set course image
     setCourseName(courseToEdit.courseName); // Set course name
     setCourseInstitute(courseToEdit.institute_id._id);
@@ -266,7 +268,6 @@ export function AdminDataProvider({ children }) {
     if (courseImage === "" || courseName === "") {
       return alert("All fields are required");
     }
-
     try {
       const response = await fetch(
         `http://localhost:3000/courses/${updateCourseData._id}`,
@@ -282,8 +283,7 @@ export function AdminDataProvider({ children }) {
             institute_id: courseInstitute,
             course_duration: courseDuration,
             totalFee: courseFee,
-            // studentsEnrolled: studentsEnrolled,
-            // totalFee: fee,
+            admision_fee: admissionfee
           }),
         }
       );
@@ -512,6 +512,8 @@ export function AdminDataProvider({ children }) {
         institutes,
         setInstitutes,
         fetchInstitutes,
+        admissionfee,
+        setAdmissionfee
       }}
     >
       {children}

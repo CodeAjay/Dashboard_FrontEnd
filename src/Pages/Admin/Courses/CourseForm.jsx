@@ -4,20 +4,19 @@ import { DataContext } from "../../../Store/store";
 import { CiCamera } from "react-icons/ci";
 
 function CourseForm() {
-const {courseFee, setCourseFee, courseDuration , setCourseDuration, contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate} = useContext(AdminDataContext)    
+const {courseFee, setCourseFee, courseDuration , setCourseDuration, contentCoursePopup,courseImage,setCourses,courseInstitute, setCourseInstitute, courses, setCourseImage, institutes,courseName, setCourseName, setCoursePopup , Button, setButton, handleCourseUpdate , admissionfee , setAdmissionfee} = useContext(AdminDataContext)    
 const {token} = useContext(DataContext)
 const addCourse = async () => {
   // Prepare the data for the new course
   const data = {
     courseName: courseName,
     imageUrl: courseImage,
-    institute_id: courseInstitute, // Ensure this is correctly set from your select input
+    institute_id: courseInstitute, 
     course_duration:courseDuration,
     totalFee : courseFee,
-    studentsEnrolled: 0, // Set initial value
-    totalFee: 0 // Set initial value
+    studentsEnrolled: 0, 
+    admission_fee : admissionfee
   };
-
   try {
     const response = await fetch("http://localhost:3000/courses", {
       method: "POST",
@@ -42,6 +41,7 @@ const addCourse = async () => {
       setCourseInstitute(""); 
       setCoursePopup(false);
       setButton(false);
+      setAdmissionfee("")
     }
   } catch (error) {
     console.error("Error adding course:", error);
@@ -148,7 +148,7 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         id="username"
         type="number"
-        placeholder="CourseName"
+        placeholder="Course Duration"
       />
     </div>
 
@@ -166,6 +166,23 @@ const [userCloudProfile, setUserCloudProfile] = useState("");
         id="username"
         type="number"
         placeholder="CourseName"
+      />
+    </div>
+
+    <div className="mb-4">
+      <label
+        className="block text-gray-700 text-sm font-bold mb-2"
+        htmlFor="admissionfee"
+      >
+        Admission Fee for This Course
+      </label>
+      <input
+      value={admissionfee}
+      onChange={(e)=>setAdmissionfee(e.target.value)}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="admissionfee"
+        type="number"
+        placeholder="Admission Fee"
       />
     </div>
 
