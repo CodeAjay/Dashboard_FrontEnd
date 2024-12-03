@@ -8,7 +8,7 @@ function StCourse() {
 console.log(studentId)
   useEffect(() => {
     const courseEnrolled = async () => {
-      const courseDetail = await fetch(`http://localhost:3000/api/student/${studentId}/course-details`, {
+      const courseDetail = await fetch(`${import.meta.env.VITE_BASE_URL}/api/student/${studentId}/course-details`, {
         headers: {
           'Content-Type': 'application/json', // Set content type
           'Authorization': `Bearer ${token}` // Include the token in the Authorization header

@@ -27,7 +27,7 @@ useEffect(()=>{
 
     const Announcement = async ()=>{
 
-        const  announce = await fetch("http://localhost:3000/api/student/announcements",{
+        const  announce = await fetch(`${import.meta.env.VITE_BASE_URL}/api/student/announcements`,{
           headers: {
             'Content-Type': 'application/json', // Set content type
             'Authorization': `Bearer ${token}` // Include the token in the Authorization header

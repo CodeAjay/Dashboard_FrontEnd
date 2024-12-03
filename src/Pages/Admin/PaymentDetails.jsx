@@ -13,7 +13,7 @@ function PaymentDetails() {
       setLoading(true);
       try {
         const feeData = await fetch(
-          `http://localhost:3000/fee-collection/${id}`,
+          `${import.meta.env.VITE_BASE_URL}/fee-collection/${id}`,
           {
             headers: {
               'Content-Type': 'application/json',

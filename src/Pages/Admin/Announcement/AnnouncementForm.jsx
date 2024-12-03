@@ -9,7 +9,7 @@ const {token} = useContext(DataContext)
     // const [description, setDescription]=useState("")
 
     const addAnnouncement=async ()=>{
-      const response = await fetch("http://localhost:3000/announcements", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/announcements`, {
         method:"POST",
         headers: {
           'Content-Type': 'application/json', // Set content type

@@ -10,7 +10,7 @@ const FeeApproval = () => {
     // Fetch all pending fee collections from the backend
     const fetchPendingFeeCollections = async () => {
         try {
-            const response = await fetch('http://localhost:3000/fee-collection/pending/fee', {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/fee-collection/pending/fee`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -37,7 +37,7 @@ const FeeApproval = () => {
     // Approve selected fee collections
     const approveSelectedFeeCollections = async () => {
         try {
-            const response = await fetch('http://localhost:3000/fee-collection/approve', {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/fee-collection/approve`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

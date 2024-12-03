@@ -31,7 +31,7 @@ function PendingFeesStudentsClerk() {
     try {
       setLoading(true);
       const pendingFees = await fetch(
-        `http://localhost:3000/clerk/fee-collection/payment-status/${penYear}`,
+        `${import.meta.env.VITE_BASE_URL}/clerk/fee-collection/payment-status/${penYear}`,
         {
           headers: {
             "Content-Type": "application/json", // Set content type

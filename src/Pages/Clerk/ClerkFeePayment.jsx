@@ -31,7 +31,7 @@ function ClerkFeePayment() {
   useEffect(() => {
     const clerkStudentFees = async () => {
       setSpinner(true);
-      const feeData = await fetch("http://localhost:3000/clerk/students", {
+      const feeData = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/students`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ function ClerkFeePayment() {
     };
     const fetchInstitutes = async () => {
       try {
-        const result = await fetch("http://localhost:3000/clerk/institutes", {
+        const result = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/institutes`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ function ClerkFeePayment() {
     };
     const showCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/clerk/courses", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/courses`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ function ClerkFeePayment() {
     setStdFeeDetails("");
     const clerkStudentFeeDetails = async () => {
       const feeData = await fetch(
-        `http://localhost:3000/clerk/fee-collection/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/clerk/fee-collection/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -124,7 +124,7 @@ function ClerkFeePayment() {
 
     try {
       const payFees = await fetch(
-        "http://localhost:3000/clerk/fee-collection",
+        `${import.meta.env.VITE_BASE_URL}/clerk/fee-collection`,
         {
           method: "POST",
           headers: {

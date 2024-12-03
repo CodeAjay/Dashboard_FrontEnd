@@ -29,7 +29,7 @@ console.log("edit announcement content", Ant)
   
       try {
         // Make the DELETE request to the backend
-        const response = await fetch(`http://localhost:3000/announcements/${deleteAnt._id}`, {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${deleteAnt._id}`, {
           method: "DELETE",
           headers: {
             'Content-Type': 'application/json', // Set content type

@@ -8,7 +8,7 @@ const {token} = useContext(DataContext)
   useEffect(() => {
     const showCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/clerk/courses", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/clerk/courses`, {
           headers: {
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${token}`  
