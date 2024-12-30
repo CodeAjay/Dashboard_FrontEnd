@@ -268,7 +268,8 @@ const addStudentHeading = [
         Button,
         setButton,
         handleCourseUpdate,institutes,setInstitutes,
-    setBtn,}}> {children} </ClerkDataContext.Provider> 
+        setBtn
+      }}> {children} </ClerkDataContext.Provider> 
   )
 }
 
